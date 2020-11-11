@@ -1,35 +1,36 @@
-const Sequilize = require('sequelize');
+const {Sequelize, DataTypes} = require('sequelize');
 const db = require('../config/database')
+const sequelize = new Sequelize('mysql::memory:')
 
-const user = db.define('user', {
+const User =  db.define('user', {
     id: {
-      type: Sequilize.INTEGER,
+      type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    user_name: {
-        type: Sequilize.STRING(20),
+    pseudo: {
+        type: DataTypes.STRING(20),
         allowNull: false
     },
     email: {
-        type: Sequilize.STRING(50),
+        type: DataTypes.STRING(50),
         unique: true,
         allowNull: false
     },
     password: {
-        type: Sequilize.STRING(20),
+        type: DataTypes.STRING(20),
         allowNull: false,
     },
-    description: {
-        type: Sequilize.TEXT,
-        allowNull: true
+    profil_picture :{
+        type: DataTypes.STRING,
+        allowNull: true,
     },
-    isAdmin: {
-        type: Sequilize.BOOLEAN,
+    admin: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: 0,
-    }   
-})
-console.log(user.id)
- module.exports = user;
+    }},
+
+)
+module.exports = User;
