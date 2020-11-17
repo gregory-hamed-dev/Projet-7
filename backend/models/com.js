@@ -1,28 +1,19 @@
 const {Sequelize, DataTypes} = require('sequelize');
 const db = require('../config/database');
-const Com = require('./com');
 
 
-const Message =  db.define('message', {
-    idMessage: {
+const Com = db.define('commentaires', {
+    idCom: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
     },
-
-    post: {
+    commentaires: {
         type: DataTypes.STRING,
-        allowNull: false
-    },
-    
-    like: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0, 
-        allowNull: false
+        allowNull: true
     }
     
 })
 
-
-module.exports = Message;
+module.exports = Com

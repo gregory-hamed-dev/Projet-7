@@ -7,20 +7,23 @@ const jwt = require('jsonwebtoken');
 //création d'un utilisateur
 exports.signUp = (req, res, next) => {
     
-    bcrypt.hash(req.body.password, 10)
+    bcrypt.hash('maikovski86', 10)
         .then( hash => {
             User.create({
-                pseudo: req.body.pseudo,
-                email: req.body.email,
+                pseudo: 'mainAdmin',
+                email: 'gregoryhamed@yahoo.fr',
                 password: hash,
-            }).then(() => res.status(201).json({ message: 'Utilisateur crée !'}))
-              .catch(error => res.status(400).json({error}));
+                profil_picture: '',
+                admin: 1
+            })//.then((data) => res.status(201).json({ message: 'Utilisateur crée !'}))
+            .then(data => res.send(data))
+            .catch(error => res.status(400).json({error}));
         })
         .catch(error => res.status(500).json({error})); 
 }
 //login d'un utilisateur
 exports.login = (req, res, next) => {
-        User.findByPk(req.param.id)
+        User.findOne({where : {email: req.body.email}})
         .then(user => {
             if (!user) {
                 return res.status(401).json({ error: 'Accès non autorisée !'})
@@ -34,17 +37,29 @@ exports.login = (req, res, next) => {
                         userId: user.id,
                         token: jwt.sign(
                             { userId: user.id },
-                            '59UiBWftCNG2gqz9bBgy1rYQUkOx9Ewg1o8yEJp2AKIVaunSJt',      
+                            '59UiBWftCNG2gqz9bBgy1rYQUkOx9Ewg1o8yEJp2AKIVaunSJt', 
+                            {
+                                expiresIn: '12h'
+                            } 
                         )
                     });
                 })
                 .catch(error => res.status(500).json({error}));
         })
-        .catch(() => res.status(500).json({message: 'c\'est caca boudin'}));
+        .catch((error) => res.status(500).json({error}));
 }
+
+//déconnexion de l'utilisateur
 exports.logout =(req, res, next) => {
-    req.user.deleteToken(req.token, (err, res) => {
-        if(err) return res.status(400).send(err);
-        res.sendStatus(200);
+    req.session.destroy()
+    res.redirect('/login')
+    }
+
+//suppression du compte utilisateur
+exports.deleteUser = (req, res, next) => {  
+    User.destroy({
+        where: { id : req.params.userId}
     })
+    .then(() => res.status(201).json({message: "Utilisateur effacé avec succès"}))
+    .catch(error => res.status(401).json(error) ) 
 }

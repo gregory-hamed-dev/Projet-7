@@ -16,8 +16,8 @@ app.use((req, res, next) => {
   
 
 app.use(bodyParser.json());
-app.use('/api/auth', userRoutes)
-app.use('/api/message', messageRoutes)
+app.use('/auth', userRoutes)
+app.use('/message', messageRoutes)
 
 
 module.exports = app;

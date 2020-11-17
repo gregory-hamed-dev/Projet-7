@@ -1,18 +1,17 @@
 const express= require('express');
 const router = express.Router();
-const Message = require('../models/message')
-const auth = require('../middleware/auth')
+const auth = require('../middleware/auth');
+const messageCtrl = require('../controllers/message');
 
-router.get('/', (req, res) => Message.findOne()
-    .then( messages => {
-        console.log(messages)
-        res.sendStatus(200);})
-    .catch( err => console.log(err))
-)
-router.post('/', auth)
-router.get('/:id', auth)
-router.post('/:id', auth)
-router.delete('/:id', auth)
-router.put('/:id', auth)
+'use strict';
+
+//routes pour les utilisateurs de base
+router.post('/create', messageCtrl.createNewPost) // créer des posts // *** test route ok ***
+router.get('/', messageCtrl.allPosts)// afficher tous les posts // *** test route ok ***
+router.put('/:id/edit', auth, messageCtrl.updatePost) // modifier son post *** test route ok ***
+router.delete('/:id/delete', auth, messageCtrl.deleteMessage) // effacer son post *** test route ok ***
+router.post('/:id/like', auth, messageCtrl.incrementLike) // liker un post *** test route ok ***
+router.get('/search', auth, messageCtrl.searchPost)//recherche de post(s) répondant au critère renseigné *** test ok ***
+
 
 module.exports = router;
