@@ -11,13 +11,17 @@ const User =  db.define('user', {
       autoIncrement: true,
       allowNull: false,
     },
-    pseudo: {
-        type: DataTypes.STRING(20),
+    nom_utilisateur: {
+        type: DataTypes.STRING(50),
         allowNull: false,
         validate: {
             // expression régulière pour valider un type de données valide
-            is: ["^[a-zA-Z]+$"]
+            is: ["^[a-zA-Z0-9]*$"]
         }
+    },
+    description :{
+        type: DataTypes.STRING,
+        allowNull: true
     },
     email: {
         type: DataTypes.STRING(50),
@@ -31,10 +35,6 @@ const User =  db.define('user', {
     password: {
         type: DataTypes.STRING,
         allowNull: false,
-       validate: {
-            // expression régulière pour valider un mot de passe correct
-          //  is: ["^[0-9a-zA-Z]+[!:;,\$]*$"], 
-        }
     },
     profil_picture :{
         type: DataTypes.STRING,

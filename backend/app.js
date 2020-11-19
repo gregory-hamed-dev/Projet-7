@@ -3,6 +3,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/User');
 const messageRoutes = require('./routes/message');
+const comRoutes =  require('./routes/com')
+const path = require('path')
 
 
 
@@ -14,10 +16,14 @@ app.use((req, res, next) => {
     next();
   });
   
+app.disable("x-powered-by")
 
 app.use(bodyParser.json());
+app.use(express.urlencoded({extended:false}))
 app.use('/auth', userRoutes)
 app.use('/message', messageRoutes)
+app.use('/commentaire', comRoutes)
+app.use('/images', express.static(path.join(__dirname, 'images')))
 
 
 module.exports = app;

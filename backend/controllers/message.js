@@ -6,8 +6,11 @@ const User = require('../models/User');
 
 //affichage de tous les posts et des auteurs, utilisation d'une fonction sequelize pour faire un select avec jointure sur les deux tables
 exports.allPosts = (req, res, next) => {
-   Message.findAll({include: [{model : User, attributes: ['pseudo']}]
+   Message.findAll({
+       include: [{model : User, attributes: ['nom_utilisateur']}], //on récupère seulement le nom d'utilisateur issu de la table users
+       order: [['createdAt','DESC']]// affichage par odre de date de publication 
 })
+
     .then(response => res.send(response))
     .catch(error => res.status(401).json({error}))
 }
@@ -26,8 +29,8 @@ exports.searchPost = (req, res, next) => {
 //création d'un nouveau post
 exports.createNewPost = (req, res, next) => {
     Message.create({
-        userId: 1,
-        post: "salut les gens !",
+        userId: req.params.userId,
+        post: req.body.post,
     }).then(() => res.status(201).json({message: 'Post créé avec succès !'}))
       .catch(error => res.status(400).json({error}))
       
@@ -46,7 +49,9 @@ exports.updatePost = (req, res, next) => {
 //suppression d'un post
 exports.deleteMessage = (req, res, next) => {
     Message.destroy({ where :{idMessage: req.params.id}})
-        .then( ()=> res.status.json({message: "Votre message a bien été effacé !"}))
+        .then( ()=> res.status.json({message: "Votre message a bien été effacé !"}),
+                    res.redirect('/signup')
+        )
         .catch( error => res.status(401).json({error}))
 }
 
