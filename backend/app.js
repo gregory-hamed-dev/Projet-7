@@ -19,7 +19,6 @@ app.use((req, res, next) => {
 app.disable("x-powered-by")
 
 app.use(bodyParser.json());
-app.use(express.urlencoded({extended:false}))
 app.use('/auth', userRoutes)
 app.use('/message', messageRoutes)
 app.use('/commentaire', comRoutes)

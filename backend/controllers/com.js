@@ -1,16 +1,18 @@
 const Message = require('../models/message')
 const User = require('../models/user')
 const Commentaire = require('../models/com')
+const Com = require('../models/com')
 
 
 exports.createCom = (req, res, next) => {
-    Message.findOne({ attributes: ['idMessage'],where : {idMessage : 3}})
+    Message.findOne({ attributes: ['idMessage'], where : {idMessage : req.params.messageId}})
         .then((message) =>{
             if(message) {
-                Commentaire.create({
-                userId: 1,
-                commentaires: 'Bonjour Admin, je suis content'
-                })
+                Commentaire.create({ 
+
+                commentaires: req.body.commentaires,
+                }, 
+                )
                 .then(() => res.status(201).json({message :'Le commentaire a été ajouté'}))
                 .catch(error => res.status(401).json({error}))
             } else {
@@ -18,4 +20,21 @@ exports.createCom = (req, res, next) => {
             }
         })
         .catch(error => res.status(500).json({error}))
+}
+exports.modifyCom = (req, res, next) => {
+        Commentaire.update(
+            {commentaires: req.body.commentaires},
+            {where : {idCom: req.params.idCom}}
+        )
+        .then(() => res.status(201).json({message :'Le commentaire a été modifié'}))
+        .catch(error => res.status(401).json({error}))
+}
+exports.allComs = (eq, res, next) => {
+    Com.findAll({
+        include: [{model : User, attributes: ['nom_utilisateur']}],
+        order: [['createdAt','DESC']]
+    })
+    
+    .then(response => res.send(response))
+    .catch(error => res.status(401).json({error}))
 }

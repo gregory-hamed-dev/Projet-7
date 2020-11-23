@@ -55,7 +55,7 @@ exports.logout = (req, res, next) => {
 
 //accéder au profil de l'utilisateur
 exports.getUserProfil = (req, res, next) => {
-    User.findOne({where : {id: req.params.userId}})
+    User.findOne()
     .then(response => res.send(response)      
     )
     .catch(error => res.status(401).json({error}))
@@ -79,9 +79,9 @@ exports.modifyUser = (req, res, next) => {
 
 //suppression du compte utilisateur
 exports.deleteUser = (req, res, next) => {  
-    User.destroy({
-        where: { id : req.params.userId}
-    })
+    const fileName = user.imageUrl.split('/images/')[1];
+        fs.unlink(`images/${fileName}`, () => {
+    User.destroy({where: { id : req.params.userId}})})
     .then(() => res.status(201).json({message: "Utilisateur effacé avec succès"}))
     .catch(error => res.status(401).json(error) ) 
 }

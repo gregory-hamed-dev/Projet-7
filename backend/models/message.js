@@ -23,6 +23,7 @@ const Message =  db.define('message', {
     }
     
 })
-
+Message.hasMany(Com)
+Com.belongsTo(Message)
 
 module.exports = Message;

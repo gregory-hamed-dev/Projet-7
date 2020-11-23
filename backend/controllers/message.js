@@ -2,12 +2,13 @@
 const Message = require('../models/Message');
 const Sequelize = require('sequelize');
 const User = require('../models/User');
+const Com = require('../models/Com')
 
 
 //affichage de tous les posts et des auteurs, utilisation d'une fonction sequelize pour faire un select avec jointure sur les deux tables
 exports.allPosts = (req, res, next) => {
    Message.findAll({
-       include: [{model : User, attributes: ['nom_utilisateur']}], //on récupère seulement le nom d'utilisateur issu de la table users
+       include: [{model : User, attributes: ['nom_utilisateur']},{model: Com, attributes: ['userId', 'commentaires', 'createdAt']}], //double jointure sur la table user et la table com
        order: [['createdAt','DESC']]// affichage par odre de date de publication 
 })
 
@@ -40,7 +41,7 @@ exports.createNewPost = (req, res, next) => {
 exports.updatePost = (req, res, next) => {
     Message.update(
         {post: req.body.post},
-        {where : {idMessage: req.params.id}}
+        {where : {idMessage: req.params.messageId}}
     )
     .then(() => res.status(201).json({message: 'Vous avez modifié le post'}))
     .catch(error => res.status(404).json({error}))   
@@ -48,7 +49,7 @@ exports.updatePost = (req, res, next) => {
 
 //suppression d'un post
 exports.deleteMessage = (req, res, next) => {
-    Message.destroy({ where :{idMessage: req.params.id}})
+    Message.destroy({ where :{idMessage: req.params.messageId}})
         .then( ()=> res.status.json({message: "Votre message a bien été effacé !"}),
                     res.redirect('/signup')
         )
@@ -57,7 +58,7 @@ exports.deleteMessage = (req, res, next) => {
 
 //like
 exports.incrementLike = (req, res, next) => {
-    Message.findByPk(req.params.id)
+    Message.findByPk(req.params.messageId)
     .then(like => {
           return  like.increment("like", {by : 1})
     })
