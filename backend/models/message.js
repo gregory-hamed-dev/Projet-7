@@ -4,7 +4,7 @@ const Com = require('./com');
 
 
 const Message =  db.define('message', {
-    idMessage: {
+    id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,

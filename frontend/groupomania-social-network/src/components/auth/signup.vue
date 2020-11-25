@@ -1,7 +1,7 @@
 <template>  
     <div class="form">
         <form>
-            <img src="../assets/icon-above-font.png" class="signupicon" alt="icone Groupomania">
+            <img src="../../assets/icon.png" class="signupicon" alt="icone Groupomania">
             <label>
                 <input type="text" class="type text" placeholder="Nom utilisateur">
             </label>
@@ -27,7 +27,7 @@ export default {
 <style scoped lang="scss">
 
 .form{
-    background: linear-gradient(to right, #fa3a2c, #f17168 );
+    background: linear-gradient(to right, #fc2112, #f17168 );
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -65,7 +65,7 @@ input{
 }
 button {
     margin-top: 15px;
-    background: rgb(221, 80, 104);
+    background: #fc2112;
     color: white;
     width: 30%;
     padding: 10px;

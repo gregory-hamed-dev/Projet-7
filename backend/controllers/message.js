@@ -2,13 +2,13 @@
 const Message = require('../models/Message');
 const Sequelize = require('sequelize');
 const User = require('../models/User');
-const Com = require('../models/Com')
+const Com = require('../models/Com');
 
 
 //affichage de tous les posts et des auteurs, utilisation d'une fonction sequelize pour faire un select avec jointure sur les deux tables
 exports.allPosts = (req, res, next) => {
    Message.findAll({
-       include: [{model : User, attributes: ['nom_utilisateur']},{model: Com, attributes: ['userId', 'commentaires', 'createdAt']}], //double jointure sur la table user et la table com
+       include: [{model : User, attributes: ['nom_utilisateur', 'profil_picture']},{model: Com, attributes: ['userId', 'commentaires', 'createdAt']}], //double jointure sur la table user et la table com
        order: [['createdAt','DESC']]// affichage par odre de date de publication 
 })
 

@@ -1,23 +1,26 @@
 <template>
   <div id="app">
     
-    <Signup/>
+    <router-view/>
+    
   </div>
 </template>
-
 <script>
- import Signup from './components/signup.vue'
-
-export default {
-  name: 'App',
-  components: {
-   Signup
+  export default {
+    name: 'App',
+    components: {
+    
+    }
   }
-}
 </script>
 
 <style lang="scss">
-*{
-  margin: 0;
+#app {
+  font-family:  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 0;
 }
 </style>

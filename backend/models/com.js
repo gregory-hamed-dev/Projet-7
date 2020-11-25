@@ -3,7 +3,7 @@ const db = require('../config/database');
 
 
 const Com = db.define('commentaires', {
-    idCom: {
+    id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,

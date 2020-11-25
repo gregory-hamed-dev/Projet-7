@@ -15,7 +15,7 @@ exports.signUp = (req, res, next) => {
                 email: req.body.email,
                 password: hash, 
             })//.then((data) => res.status(201).json({ message: 'Utilisateur crée !'}))
-            .then(data => res.send(data))
+            .then(newUser => res.send(newUser.id))
             .catch(error => res.status(400).json({error, message: 'les données renseignées ne respectent pas les contraintes'}));
         })
         .catch(error => res.status(500).json({error, message : 'impossible d\'inscrire l\'utilisateur '})); 
