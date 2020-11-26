@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html style="height: 100%"lang="fr">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,12 +7,19 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+    body{
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    </style>
   </head>
-  <body style="margin: 0; padding: 0;">
+  <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+    <div id="app" style="height: 100%;"></div>
     <!-- built files will be auto injected -->
   </body>
 </html>

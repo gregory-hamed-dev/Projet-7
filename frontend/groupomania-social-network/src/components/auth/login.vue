@@ -37,7 +37,7 @@ export default {
         .then(function(res) {
             console.log(res.data)
             localStorage.setItem("token", res.data.token);
-            window.location.href='/home'
+            window.location.href='/home/:userId/'
         }
         )
         .catch(error =>  this.error = error.response.data.error)

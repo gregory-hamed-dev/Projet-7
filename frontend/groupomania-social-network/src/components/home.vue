@@ -26,7 +26,7 @@ export default {
             newPost: ''
         }
     },
-    mounted () {
+    beforeMount () {
             const axios = require('axios')
             const url = 'http://127.0.0.1:3000/message'
             axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem("token");
@@ -75,7 +75,7 @@ section{
     margin-left: auto;
     margin-right: auto;
     justify-content: space-around;
-    background: linear-gradient(to bottom, rgb(228, 227, 181), rgb(228, 227, 165));
+    background: linear-gradient(to bottom, rgb(216, 216, 216), rgb(240, 240, 240));
 }
 .far{
     font-size: 1.2rem;

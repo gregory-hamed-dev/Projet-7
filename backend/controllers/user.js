@@ -13,6 +13,7 @@ exports.signUp = (req, res, next) => {
             User.create({
                 nom_utilisateur: req.body.nom_utilisateur,
                 email: req.body.email,
+                profil_picture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
                 password: hash, 
             })//.then((data) => res.status(201).json({ message: 'Utilisateur crée !'}))
             .then(newUser => res.send(newUser.id))
@@ -35,7 +36,7 @@ exports.login = (req, res, next) => {
                     res.status(200).json({
                         userId: user.id,
                         token: jwt.sign(
-                            { userId: user.id },
+                            { userId: user.id, Admin: user.admin},
                             '59UiBWftCNG2gqz9bBgy1rYQUkOx9Ewg1o8yEJp2AKIVaunSJt', 
                             {
                                 expiresIn: '12h'
@@ -48,15 +49,13 @@ exports.login = (req, res, next) => {
         .catch((error) => res.status(403).json({error, message: ' L\'utilisateur doit créer un compte '}));
 }
 
-//déconnexion de l'utilisateur
-exports.logout = (req, res, next) => {
-    res.redirect('auth/login')
-    }
-
 //accéder au profil de l'utilisateur
 exports.getUserProfil = (req, res, next) => {
-    User.findOne()
-    .then(response => res.send(response)      
+    User.findOne(
+        {attributes: ['id', 'nom_utilisateur', 'description', 'email', 'profil_picture']},
+        {where :{id: req.params.userId}}
+    )
+    .then(user => res.send(user)      
     )
     .catch(error => res.status(401).json({error}))
 }

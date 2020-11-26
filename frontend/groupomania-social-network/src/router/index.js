@@ -14,7 +14,7 @@ const routes = [
     name: 'Connexion', 
     component: () => import('../views/Signup.vue')},
 
-  { path: '/home', 
+  { path: '/home/:userId', 
     name: 'Mur', 
     component: () => import('../views/home.vue')},
 

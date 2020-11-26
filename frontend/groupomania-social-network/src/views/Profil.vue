@@ -1,12 +1,21 @@
 <template>
-    <div>
-        <h1>Votre profil</h1>
-        <h2>{{this.$route.params.userId}}</h2>
+    <div class="container">
+        <div id="nav">
+            <img class="logo" src="../assets/icon-left-font-monochrome-black.svg">
+            <div class="links">
+                <a href="http://localhost:8080/home/:userId">Home</a>
+            </div>    
+        </div>  
+         <Profil></Profil>
     </div>
 </template>
 <script>
+import Profil from '../components/editProfil.vue'
 export default {
-    name: 'user profil',
+    name: 'userProfil',
+    components: {
+      Profil
+    }
 }
 </script>
 <style lang="scss" scoped>

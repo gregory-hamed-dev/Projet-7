@@ -5,7 +5,7 @@ const Sequelize = require('sequelize');
 const connect = new Sequelize('groupomania_social_network', 'root', 'maiakovski86', {
     host : '127.0.0.1',
     dialect: 'mysql',
-    //logging: true,
+    logging: false,
 })
  // test de connexion à la db
 connect.authenticate()
