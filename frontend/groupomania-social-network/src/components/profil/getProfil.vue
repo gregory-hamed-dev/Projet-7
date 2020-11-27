@@ -1,9 +1,8 @@
 <template>
 <div class="profil-container">
     <img :src='profilDatas.profil_picture'>
-    <h1>{{profilDatas.nom_utilisateur}}</h1>
+    <p>{{profilDatas.nom_utilisateur}}</p>
     <p>{{profilDatas.description}}</p>
-    <p>{{profilDatas.email}}</p>
 </div> 
 </template>
 <script>
@@ -34,17 +33,15 @@ $marginBtwEl: 20px;
      display: flex;
      flex-direction: column;
      align-items: center;
-     background: brown;
+     background: rgb(99, 42, 165);
      color: white;
     
      
-        h2{
-            background: cornsilk;
-            color: rgb(172, 62, 62);
-            width: 100%;
-            margin-top: $marginBtwEl;
-            padding: 10px;
-            box-sizing: border-box;
+        img{
+            margin-top: 20px;
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
         }
 
         p{

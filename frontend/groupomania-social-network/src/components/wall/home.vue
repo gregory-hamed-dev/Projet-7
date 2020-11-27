@@ -2,7 +2,10 @@
     <section> 
         <div v-for="data in datas" :key="data.id" class='post-container'>
             <div class="info-profil">
-                <p class="name"><i class="fas fa-user"></i> {{data.user.nom_utilisateur}}</p>  
+                <div class="identity">
+                    <img :src="data.user.profil_picture" alt="">
+                    <p class="name"> {{data.user.nom_utilisateur}}</p>  
+                </div>
                 <p class='date-post'>publié le {{data.updatedAt}}</p> 
             </div>
             <p class="post">{{data.post}}</p>
@@ -45,6 +48,8 @@ section{
     background: rgb(253, 253, 253);
     font-family: roboto;
     font-size: 14px;
+    padding-bottom: 100px;
+
 }
 .post-container{
     box-shadow: 1px 2px 15px black;
@@ -56,11 +61,21 @@ section{
         display: flex;
         justify-content: space-between;
 
+        .identity{
+            margin-top: 5px;
+            margin-left: 5px;
+            display: flex;
+        }
+
         .name{
-            margin-left: 20px;
+            margin-left: 10px;
             margin-right: 20px;
-            font-weight: bold;
-            
+            font-weight: bold;  
+        }
+        img{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
         }
     }
     .post{
@@ -88,5 +103,6 @@ section{
 .fa-comment{
     color: rgb(202, 25, 179);
 }
+
 
 </style>

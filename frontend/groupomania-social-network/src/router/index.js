@@ -6,9 +6,10 @@ import Profil from '../views/Profil.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/login', 
+  { path: '/', 
     name: 'Inscription', 
-    component: Login},
+    component: Login,
+  },
 
   { path: '/signup',
     name: 'Connexion', 
@@ -16,13 +17,14 @@ const routes = [
 
   { path: '/home/:userId', 
     name: 'Mur', 
-    component: () => import('../views/home.vue')},
+    component: () => import('../views/home.vue'),
+  },
 
   {
     path: '/profil/:userId', 
     name: 'user profil',
     component: Profil,
-    params: true}
+   }
 ]
 const router = new VueRouter({
   routes,

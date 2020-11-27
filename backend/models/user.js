@@ -16,7 +16,7 @@ const User =  db.define('user', {
         allowNull: false,
         validate: {
             // expression régulière pour valider un type de données valide
-            is: ["^[a-zA-Z0-9]*$"]
+            
         }
     },
     description :{

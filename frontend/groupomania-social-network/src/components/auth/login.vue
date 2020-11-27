@@ -35,9 +35,10 @@ export default {
         password: this.posts.password
     })
         .then(function(res) {
+            const userId = 1;
             console.log(res.data)
             localStorage.setItem("token", res.data.token);
-            window.location.href='/home/:userId/'
+            window.location.href=`/home/${userId}`
         }
         )
         .catch(error =>  this.error = error.response.data.error)
@@ -54,13 +55,15 @@ export default {
 <style scoped lang="scss">
 
 .form{
-    background: linear-gradient(to right, #fc2112, #f17168 );
+    background: linear-gradient(to right, #ac150a, #f17168 );
     display: flex;
     padding: 25px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 0;
+    height: 100%;
+    
+    
 }
 
 .signupicon{
@@ -75,6 +78,7 @@ form{
     padding: 20px;
     justify-content: center;
     align-items: center;
+    border-radius: 25px;
 }
 
 input{
@@ -99,7 +103,10 @@ button {
     width: 30%;
     padding: 10px;
     cursor: pointer;
-    
+    transition: 0.5s;
+     &:hover{
+         background: #f55a4f;
+     }
 }
 
 </style>

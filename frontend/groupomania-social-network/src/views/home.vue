@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import  PostMessage from '../components/postMessage'
-import Allmessages from '../components/home'
+import  PostMessage from '../components/wall/postMessage'
+import Allmessages from '../components/wall/home'
 export default {
     name: 'Home',
     components: {
@@ -24,19 +24,16 @@ export default {
     methods: {
       logout() {
         localStorage.removeItem("token")
-        this.$router.push('/login')
+        this.$router.push('/')
       }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-
-
   $font: roboto;
   .container{
     font-family: $font ;
-  }
-  
-  
+    
+  } 
 </style>

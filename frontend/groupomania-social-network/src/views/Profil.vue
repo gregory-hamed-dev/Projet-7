@@ -6,18 +6,18 @@
                 <a href="http://localhost:8080/home/:userId">Home</a>
             </div>    
         </div>  
-         <Profil></Profil>
+         <ModifyProfil></ModifyProfil>
     </div>
 </template>
 <script>
-import Profil from '../components/editProfil.vue'
+import ModifyProfil from '../components/profil/editProfil.vue'
 export default {
     name: 'userProfil',
     components: {
-      Profil
+     ModifyProfil
     }
 }
 </script>
-<style lang="scss" scoped>
+<style scoped lang="scss" >
 
 </style>

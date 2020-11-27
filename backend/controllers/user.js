@@ -62,11 +62,13 @@ exports.getUserProfil = (req, res, next) => {
 
 //modification des données utilisateur
 exports.modifyUser = (req, res, next) => {
-    const image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    const userObject = req.file ? {...JSON.parse(req.body.user), profil_picture : image} : {...req.body}
+    //const image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  //  const userObject = req.file ? {...JSON.parse(req.body.user), profil_picture : image} : {...req.body}
     User.update(
         {
-            ...userObject
+            nom_utilisateur: req.body.nom_utilisateur,
+            description: req.body.description,
+            email:req.body.email,
           
         },
         {where : {id: req.params.userId}}
@@ -78,7 +80,7 @@ exports.modifyUser = (req, res, next) => {
 
 //suppression du compte utilisateur
 exports.deleteUser = (req, res, next) => {  
-    const fileName = user.imageUrl.split('/images/')[1];
+    const fileName = user.profil_picture.split('/images/')[1];
         fs.unlink(`images/${fileName}`, () => {
     User.destroy({where: { id : req.params.userId}})})
     .then(() => res.status(201).json({message: "Utilisateur effacé avec succès"}))
