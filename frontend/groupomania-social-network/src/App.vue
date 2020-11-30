@@ -29,6 +29,7 @@
   display: flex;
   justify-content: space-between;
   box-shadow: 0 4px 2px -2px gray;
+  background: white;
   }
   .links{
     margin-right: 20px;

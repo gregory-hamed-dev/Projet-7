@@ -5,6 +5,7 @@ const fs =  require('fs');
 
 
 
+
 //création d'un utilisateur
 exports.signUp = (req, res, next) => {
     
@@ -13,7 +14,6 @@ exports.signUp = (req, res, next) => {
             User.create({
                 nom_utilisateur: req.body.nom_utilisateur,
                 email: req.body.email,
-                profil_picture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
                 password: hash, 
             })//.then((data) => res.status(201).json({ message: 'Utilisateur crée !'}))
             .then(newUser => res.send(newUser.id))
@@ -62,14 +62,16 @@ exports.getUserProfil = (req, res, next) => {
 
 //modification des données utilisateur
 exports.modifyUser = (req, res, next) => {
-    //const image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  //  const image = `${req.protocol}://${req.get('host')}/images/${req.file.originalname}`
   //  const userObject = req.file ? {...JSON.parse(req.body.user), profil_picture : image} : {...req.body}
     User.update(
-        {
+        {   
+
+           // ...userObject,
             nom_utilisateur: req.body.nom_utilisateur,
             description: req.body.description,
-            email:req.body.email,
-          
+            email: req.body.email,
+          //  profil_picture: image
         },
         {where : {id: req.params.userId}}
     )
@@ -77,7 +79,17 @@ exports.modifyUser = (req, res, next) => {
     )
     .catch(error => res.status(401).json({error, message: 'impossible de modifier les informations de profil'}))
 }
-
+/*async function editProfil() {
+        await User.update(
+            {   
+                nom_utilisateur: req.body.nom_utilisateur,
+                description: req.body.description,
+                email: req.body.email,
+            },
+            {where : {id: req.params.userId}}
+        )
+    }
+    editProfil()*/
 //suppression du compte utilisateur
 exports.deleteUser = (req, res, next) => {  
     const fileName = user.profil_picture.split('/images/')[1];

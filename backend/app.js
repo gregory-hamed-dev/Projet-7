@@ -19,6 +19,7 @@ app.use((req, res, next) => {
 app.disable("x-powered-by")
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}))
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/auth', userRoutes)
 app.use('/message', messageRoutes)

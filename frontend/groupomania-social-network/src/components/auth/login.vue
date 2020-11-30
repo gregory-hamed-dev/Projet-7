@@ -1,4 +1,4 @@
-<template>  
+<template>
     <div class="form">
         <form @submit.prevent="loginUser" method="post" >
             <img src="../../assets/icon.png" class="signupicon" alt="icone Groupomania">
@@ -7,12 +7,12 @@
             <label for="password">Mot de passe</label>
             <input type="password" id="password" v-model="posts.password">
             <button type="submit">Se connecter</button>
+           
         </form>
     </div>
 </template>
 
 <script>
-
 export default {
     name: 'Login',
     data(){
@@ -20,7 +20,8 @@ export default {
             posts: {
                 email: '',
                 password: '',
-                error: null
+                error: null, 
+               
             }
         }
     },
@@ -35,10 +36,9 @@ export default {
         password: this.posts.password
     })
         .then(function(res) {
-            const userId = 1;
             console.log(res.data)
-            localStorage.setItem("token", res.data.token);
-            window.location.href=`/home/${userId}`
+            localStorage.setItem("token", res.data.token); 
+            window.location.href=`/home/${res.data.userId}`
         }
         )
         .catch(error =>  this.error = error.response.data.error)
@@ -55,14 +55,12 @@ export default {
 <style scoped lang="scss">
 
 .form{
-    background: linear-gradient(to right, #ac150a, #f17168 );
+    background: linear-gradient(to right, #b6aaa9, #756564 );
     display: flex;
-    padding: 25px;
+    padding: 80px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    
     
 }
 

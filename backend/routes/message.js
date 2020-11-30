@@ -7,7 +7,7 @@ const AdminRole = require("../middleware/AdminRole")
 'use strict';
 
 //routes pour les utilisateurs de base
-router.post('/create', auth, messageCtrl.createNewPost) // créer des posts // *** test route ok ***
+router.post('/create/:userId', auth, messageCtrl.createNewPost) // créer des posts // *** test route ok ***
 router.get('/', auth, messageCtrl.allPosts)// afficher tous les posts // *** test route ok ***
 router.put('/:messageId/modify', auth, messageCtrl.updatePost) // modifier son post *** test route ok ***
 router.delete('/:messageId/delete', auth, messageCtrl.deleteMessage) // effacer son post *** test route ok ***

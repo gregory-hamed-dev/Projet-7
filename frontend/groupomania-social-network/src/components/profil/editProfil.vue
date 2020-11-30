@@ -1,7 +1,7 @@
 <template>
     <div id="userModify-container">
         <h1>Modifier votre profil</h1>
-        <form action="submit" @submit.prevent="editProfil" class="user-modify">
+        <form action="submit" @submit.prevent="editProfil" class="user-modify" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name">Nom utilisateur</label>
                 <input type="text" class="form-control" id="name" v-model="name">
@@ -37,7 +37,8 @@ export default {
             avatar: '',
             user: '',
             email:'',
-            file: ''
+            file: '',
+            userid: '',
         }
     },
      methods: {
@@ -54,7 +55,7 @@ export default {
             })
             .then(() => {
                 console.log('modification du profil utilisateur réussie')
-                window.location.href = "/home/:userId"
+                window.location.href = `/home/${this.user.userId}`
             })
             .catch(() =>{
                 console.log('échec de la modification')
@@ -118,8 +119,6 @@ export default {
     transition: 0.5s;
 }
     
-
-
 #submit-profil{
     background: rgb(77, 66, 122);
     margin-top: 30px;

@@ -8,6 +8,6 @@ const { route } = require('./User')
 
 router.post('/:userId/:messageId/create', auth, commCtrl.createCom) // *** test route ok ***
 router.put('/:idCom/modify', auth, commCtrl.modifyCom)
-router.get('/', commCtrl.allComs )
+router.get('/', auth, commCtrl.allComs )
 
 module.exports = router

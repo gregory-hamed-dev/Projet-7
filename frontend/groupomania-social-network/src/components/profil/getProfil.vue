@@ -1,25 +1,32 @@
 <template>
 <div class="profil-container">
-    <img :src='profilDatas.profil_picture'>
-    <p>{{profilDatas.nom_utilisateur}}</p>
-    <p>{{profilDatas.description}}</p>
+    <img :src='profilDatas.profil_picture'><br>
+    <i>{{profilDatas.email}}</i><br>
+    <p style="margin: 0;"><b>{{profilDatas.nom_utilisateur}}</b> </p>
+    <p v-if="this.user.Admin = true"> <i class="fas fa-crown" style="color: gold;"></i> Modérateur</p>
+    <p class="profil-bio">{{profilDatas.description}}</p>  
 </div> 
 </template>
 <script>
+import VueJwtDecode from 'vue-jwt-decode';
 export default {
     name: 'Profil',
     data(){
         return{
-        profilDatas: ''
+        profilDatas: '',
         }
     }, 
      mounted () {
+            this.token = localStorage.getItem('token');
             const axios = require('axios')
             const url = 'http://127.0.0.1:3000/auth/profil/'
-            axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem("token");
+            axios.defaults.headers.common['Authorization'] = "Bearer " + this.token;
             axios.get(url)
             .then(response => this.profilDatas = response.data)
             .catch(error => console.log(error)) 
+            this.user = VueJwtDecode.decode(this.token);
+
+            
         },
 }
 </script>
@@ -28,27 +35,28 @@ export default {
 $marginBtwEl: 20px;
 
  .profil-container{
-     width: 40%;
+     width: 50%;
      margin: 20px auto;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     background: rgb(99, 42, 165);
-     color: white;
+     display: block;
+     background: white;
+     color: rgb(37, 28, 28);
     
      
         img{
             margin-top: 20px;
-            height: 100px;
-            width: 100px;
+            height: 150px;
+            width: 150px;
             border-radius: 50%;
+            
         }
-
+        .profil-bio{
+            width: 40%;
+            text-align:center;
+            margin: 0 auto;
+        }
         p{
-            margin-top: $marginBtwEl;
+            margin: 5 auto;
         }
-
-        
  }
 
 </style>

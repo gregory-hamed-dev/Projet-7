@@ -8,7 +8,9 @@ const Com = require('../models/Com');
 //affichage de tous les posts et des auteurs, utilisation d'une fonction sequelize pour faire un select avec jointure sur les deux tables
 exports.allPosts = (req, res, next) => {
    Message.findAll({
-       include: [{model : User, attributes: ['nom_utilisateur', 'profil_picture']},{model: Com, attributes: ['userId', 'commentaires', 'createdAt']}], //double jointure sur la table user et la table com
+       include: [{model : User, attributes: ['nom_utilisateur', 'profil_picture']}, //double jointure sur la table user et la table com
+                {model: Com, attributes: ['userId', 'commentaires', 'createdAt']}
+        ], 
        order: [['createdAt','DESC']]// affichage par odre de date de publication 
 })
 
@@ -31,6 +33,7 @@ exports.searchPost = (req, res, next) => {
 exports.createNewPost = (req, res, next) => {
     Message.create({
         userId: req.params.userId,
+        title: req.body.title,
         post: req.body.post,
     }).then(() => res.status(201).json({message: 'Post créé avec succès !'}))
       .catch(error => res.status(400).json({error}))
@@ -40,7 +43,7 @@ exports.createNewPost = (req, res, next) => {
 // modifier les données d'un post
 exports.updatePost = (req, res, next) => {
     Message.update(
-        {post: req.body.post},
+        {title: req.body.title, post: req.body.post},
         {where : {idMessage: req.params.messageId}}
     )
     .then(() => res.status(201).json({message: 'Vous avez modifié le post'}))

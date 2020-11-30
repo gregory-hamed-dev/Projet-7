@@ -11,6 +11,11 @@ const Message =  db.define('message', {
         allowNull: false
     },
 
+    title : {
+        type: DataTypes.STRING(45),
+        allowNull: true,
+    },
+
     post: {
         type: DataTypes.STRING,
         allowNull: false
