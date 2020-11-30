@@ -3,7 +3,7 @@
     <div id="nav">
       <img class="logo" src="../assets/icon-left-font-monochrome-black.svg">
       <div class="links">
-          <a href="http://localhost:8080/profil/1">modifier profil</a>
+          <a :href="'http://localhost:8080/profil/' + user.userId">modifier profil</a>
           <p class="deconnect" @click="logout">Déconnexion</p>
       </div>    
     </div>
@@ -16,17 +16,28 @@
 <script>
 import Profil from '../components/profil/getProfil'
 import Allmessages from '../components/wall/home'
+import VueJwtDecode from 'vue-jwt-decode';
 export default {
     name: 'Home',
     components: {
       Allmessages,
       Profil
     },
+    data() { 
+      return {
+        user: null
+      }
+    },
     methods: {
       logout() {
         localStorage.removeItem("token")
         this.$router.push('/')
       }
+    },
+    mounted() {
+      this.token = localStorage.getItem('token');
+      this.user = VueJwtDecode.decode(this.token)
+      console.log(this.user.userId)
     }
 }
 </script>
@@ -36,6 +47,11 @@ export default {
   .container{
     font-family: $font ; 
   }
+  .avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
   #sendMess{
      background: rgba(91, 91, 156, 0.7);
      color: white;

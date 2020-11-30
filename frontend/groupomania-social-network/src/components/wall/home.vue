@@ -1,15 +1,16 @@
 <template>
     <section> 
         <div v-for="data in datas" :key="data.id" class='post-container'>
+            <a :href="'/message/' + data.id">
             <div class="info-profil">
                 <div class="identity">
-                    <img :src="data.user.profil_picture" alt="">
+                    <img class="avatar" :src="data.user.profil_picture" alt="">
                     <p class="name"> {{data.user.nom_utilisateur}}</p>  
                 </div>
                 <p class='date-post'>publié le {{data.updatedAt}}</p> 
             </div>
             <h3 class="title">{{data.title}}</h3>
-            <p class="post">{{data.post}}</p>
+            <p class="post">{{data.post}}</p></a>
             <div id="update-delete-container">
                 <!-- seul l'utilisateur qui a crée le post peut le modifier-->
                 <p v-if="user.userId === data.userId" class="button-modify">Modifier</p>
@@ -32,7 +33,6 @@ export default {
     data(){
         return {
             datas: '',
-            newPost: '',
             user: null, 
             token: null
         }
@@ -45,8 +45,7 @@ export default {
             this.user = VueJwtDecode.decode(this.token);
             axios.get(url)
             .then(response => this.datas = response.data)
-            .catch(error => console.log(error)) 
-            
+            .catch(error => console.log(error))    
         },
 }
 </script>

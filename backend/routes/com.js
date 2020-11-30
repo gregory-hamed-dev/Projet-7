@@ -6,7 +6,7 @@ const { route } = require('./User')
 
 'use-strict'
 
-router.post('/:userId/:messageId/create', auth, commCtrl.createCom) // *** test route ok ***
+router.post('/create//:userId/:messageId', auth, commCtrl.createCom) // *** test route ok ***
 router.put('/:idCom/modify', auth, commCtrl.modifyCom)
 router.get('/', auth, commCtrl.allComs )
 

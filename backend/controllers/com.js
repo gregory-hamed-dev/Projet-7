@@ -10,6 +10,8 @@ exports.createCom = (req, res, next) => {
             if(message) {
                 Commentaire.create({ 
                 commentaires: req.body.commentaires,
+                userId: req.params.userid,
+                messageId: req.params.messageId,
                 }, 
                 )
                 .then(() => res.status(201).json({message :'Le commentaire a été ajouté'}))
