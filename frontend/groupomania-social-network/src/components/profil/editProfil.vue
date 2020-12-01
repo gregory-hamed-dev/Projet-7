@@ -3,15 +3,15 @@
         <h1>Modifier votre profil</h1>
         <form action="submit" @submit.prevent="editProfil" class="user-modify" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="name">Nom utilisateur</label>
+                <label for="name" class="label-profil-group">Nom utilisateur</label>
                 <input type="text" class="form-control" id="name" v-model="name">
             </div>                                                                                
             <div class="form-group">
-                <label for="description">description</label>
+                <label for="description" class="label-profil-group">description</label>
                 <textarea class="form-control" id="description" rows="5" v-model="description"></textarea> 
             </div> 
             <div class="form-group">
-                <label for="email">Votre nouveau mail</label>
+                <label for="email" class="label-profil-group">Votre nouveau mail</label>
                 <input type="email" class="form-control" id="email" v-model="email">
             </div>                                                                                                                                                         
             <div class="form-group">
@@ -91,7 +91,7 @@ export default {
         margin: 20px auto;
         width: 100%;
     }
-    label{
+    .label-profil-group{
         font-size: 20px;
     }
     .form-control {

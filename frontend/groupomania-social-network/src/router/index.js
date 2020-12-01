@@ -25,16 +25,25 @@ const routes = [
     name: 'user profil',
     component: Profil,
    }, 
+
+   {
+    path: '/message/:id',
+    name: 'MessageVue',
+    component: () => import ('../views/UniqueMessagePage.vue'),
+  },
+
    {
      path: '/message/create',
      name: 'newMessage',
      component: () => import ('../views/newMessage.vue'),
    },
+   
    {
-     path: '/message/:id',
-     name: 'MessageVue',
-     component: () => import ('../views/UniqueMessagePage.vue'),
+     path: '/message/update/:id',
+     name: 'updateMessage',
+     component: () => import ('../views/updateMessage.vue')
    }
+  
 ]
 const router = new VueRouter({
   routes,

@@ -50,8 +50,9 @@ exports.createNewPost = (req, res, next) => {
 // modifier les données d'un post
 exports.updatePost = (req, res, next) => {
     Message.update(
-        {title: req.body.title, post: req.body.post},
-        {where : {idMessage: req.params.messageId}}
+        {title: req.body.title, 
+        post: req.body.post},
+        {where : {id: req.params.messageId}}
     )
     .then(() => res.status(201).json({message: 'Vous avez modifié le post'}))
     .catch(error => res.status(404).json({error}))   

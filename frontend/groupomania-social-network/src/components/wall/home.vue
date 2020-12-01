@@ -1,7 +1,7 @@
 <template>
     <section> 
         <div v-for="data in datas" :key="data.id" class='post-container'>
-            <a :href="'/message/' + data.id">
+            
             <div class="info-profil">
                 <div class="identity">
                     <img class="avatar" :src="data.user.profil_picture" alt="">
@@ -10,24 +10,24 @@
                 <p class='date-post'>publié le {{data.updatedAt}}</p> 
             </div>
             <h3 class="title">{{data.title}}</h3>
-            <p class="post">{{data.post}}</p></a>
+            <p class="post">{{data.post}}</p>
             <div id="update-delete-container">
                 <!-- seul l'utilisateur qui a crée le post peut le modifier-->
-                <p v-if="user.userId === data.userId" class="button-modify">Modifier</p>
+                <a :href="'/message/update/' + data.id"><p v-if="user.userId === data.userId" class="button-modify">Modifier</p></a>
                 <!--L'utiisateur qui a crée le post ou le modérateur peuvent effacer le post -->
                 <p v-if="user.userId === data.userId || user.Admin ===true" class="button-delete">Supprimer</p>
             </div>
             <hr style="width: 70%">
             <div class="interaction-user">
                 <p><i class="fas fa-heart"></i> {{data.like}}</p>
-                <p><i class="far fa-comment"></i></p>
+                <a :href="'/message/' + data.id"><p><i class="far fa-comment"></i></p></a>
             </div>
         </div>
-   
     </section>
 </template>
 <script>
 import VueJwtDecode from 'vue-jwt-decode'
+
 export default {
     name: 'Allmessages',
     data(){
@@ -35,6 +35,12 @@ export default {
             datas: '',
             user: null, 
             token: null
+        }
+    },
+    methods: {
+        showModifyForm(){
+            const displayItem = document.querySelector('.submit-modify')
+            displayItem.style.display = 'block'
         }
     },
     mounted () {
@@ -138,6 +144,7 @@ section{
 .fa-comment{
     color: rgb(202, 25, 179);
 }
-
-
+a{
+    padding: 0
+}
 </style>
