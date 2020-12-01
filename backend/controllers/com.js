@@ -5,13 +5,13 @@ const Com = require('../models/com')
 
 
 exports.createCom = (req, res, next) => {
-    Message.findOne({ attributes: ['idMessage'], where : {idMessage : req.params.messageId}})
+    Message.findOne({ where : {id: req.params.messageId}})
         .then((message) =>{
             if(message) {
                 Commentaire.create({ 
                 commentaires: req.body.commentaires,
-                userId: req.params.userid,
-                messageId: req.params.messageId,
+                userId: req.params.userId,
+                messageId: req.params.messageId
                 }, 
                 )
                 .then(() => res.status(201).json({message :'Le commentaire a été ajouté'}))
@@ -30,10 +30,11 @@ exports.modifyCom = (req, res, next) => {
         .then(() => res.status(201).json({message :'Le commentaire a été modifié'}))
         .catch(error => res.status(401).json({error}))
 }
-exports.allComs = (eq, res, next) => {
+exports.allComs = (req, res, next) => {
     Com.findAll({
-        include: [{model : User, attributes: ['nom_utilisateur']}],
-        order: [['createdAt','DESC']]
+        include: [{model : User, attributes: ['nom_utilisateur', 'profil_picture']}],
+        order: [['createdAt','DESC']],
+        where :{messageId: req.params.messageId} 
     })
     
     .then(response => res.send(response))

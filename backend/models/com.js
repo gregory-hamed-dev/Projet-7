@@ -13,10 +13,6 @@ const Com = db.define('commentaires', {
         type: DataTypes.STRING,
         allowNull: true
     },
-    like: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
-    }
     
 })
 

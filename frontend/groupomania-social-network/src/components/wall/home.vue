@@ -67,6 +67,7 @@ section{
     .info-profil{
         display: flex;
         justify-content: space-between;
+        margin-left: 25px;
 
         .identity{
             margin-top: 5px;

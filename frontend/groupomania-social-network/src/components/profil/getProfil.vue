@@ -2,7 +2,7 @@
 <div class="profil-container">
     <img :src='profilDatas.profil_picture'><br>
     <i>{{profilDatas.email}}</i><br>
-    <p style="margin: 0;"><b>{{profilDatas.nom_utilisateur}}</b> </p>
+    <p class="user-profil" style="margin: 0;"><b>{{profilDatas.nom_utilisateur}}</b> </p>
     <p v-if="this.user.Admin = true"> <i class="fas fa-crown" style="color: gold;"></i> Modérateur</p>
     <p class="profil-bio">{{profilDatas.description}}</p>  
 </div> 
@@ -40,6 +40,7 @@ $marginBtwEl: 20px;
      display: block;
      background: white;
      color: rgb(37, 28, 28);
+     padding-bottom: 25px;
     
      
         img{
@@ -57,6 +58,10 @@ $marginBtwEl: 20px;
         p{
             margin: 5 auto;
         }
+        .user-profil{
+            font-size: 18px;
+        }
+    
  }
 
 </style>
