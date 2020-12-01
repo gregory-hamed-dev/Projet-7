@@ -27,7 +27,6 @@
           <hr style="width: 80%">
           <div class="interaction-user">
               <p><i class="fas fa-heart"></i> {{datas.like}}</p>
-              <p><i class="far fa-comment"></i></p>
           </div>
         </div>
     </div>

@@ -11,7 +11,7 @@
             <label for="article-title" class="label-profil-group">Titre</label>
             <input id='article-title' type="text" placeholder="Votre titre ..." v-model="title">
             <label for="post_textarea" class="label-profil-group">commentaire</label>
-            <textarea id="post_textarea" placeholder="  Votre commentaire ..." maxlength="255" required v-model="post"></textarea>
+            <textarea id="post_textarea" placeholder="  Votre commentaire ..." maxlength="500" required v-model="post"></textarea>
             <button class ="submit-com" type ="submit" value="publier">publier</button>
         </form>
     </div>

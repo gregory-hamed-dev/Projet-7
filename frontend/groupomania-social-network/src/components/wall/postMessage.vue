@@ -2,7 +2,7 @@
       <div class="div_post_content">
       <form @submit.prevent="createPost" method="post" id="post-message">
         <input id='article-title' type="text" placeholder="Votre titre ..." v-model="title">
-        <textarea id="post_textarea" placeholder="  Votre commentaire ..." maxlength="255" required v-model="post"></textarea>
+        <textarea id="post_textarea" placeholder="  Votre commentaire ..." maxlength="500" required v-model="post"></textarea>
         <input class ="submit-com" type ="submit" value="publier">
       </form>
     </div>
@@ -44,7 +44,7 @@ export default {
 
 }
 </script>
-<style  lang="scss" >
+<style scoped lang="scss" >
  $font: roboto;
 
 

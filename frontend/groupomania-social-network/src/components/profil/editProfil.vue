@@ -48,14 +48,14 @@ export default {
         editProfil() {
             const formData = new FormData();
             formData.append('nom_utilisateur', this.name)
-            formData.append('profil_picture', this.file)
+            formData.append('image', this.file)
             formData.append('description', this.description)
             axios.put('http://127.0.0.1:3000/auth/profil/modify/' + this.user.userId, formData, {
                 headers : {'Content-Type' : 'multipart/form-data'}
             })
             .then(() => {
                 console.log('modification du profil utilisateur réussie')
-                window.location.href = `/home/${this.user.userId}`
+                window.location.href = `/home`
             })
             .catch(() =>{
                 console.log('échec de la modification')

@@ -62,16 +62,14 @@ exports.getUserProfil = (req, res, next) => {
 
 //modification des données utilisateur
 exports.modifyUser = (req, res, next) => {
-  //  const image = `${req.protocol}://${req.get('host')}/images/${req.file.originalname}`
-  //  const userObject = req.file ? {...JSON.parse(req.body.user), profil_picture : image} : {...req.body}
+  const image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+
     User.update(
         {   
-
-           // ...userObject,
             nom_utilisateur: req.body.nom_utilisateur,
             description: req.body.description,
             email: req.body.email,
-          //  profil_picture: image
+            profil_picture: image
         },
         {where : {id: req.params.userId}}
     )

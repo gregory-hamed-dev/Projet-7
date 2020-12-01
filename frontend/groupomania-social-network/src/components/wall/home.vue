@@ -74,6 +74,7 @@ section{
         display: flex;
         justify-content: space-between;
         margin-left: 25px;
+        padding: 15px;
 
         .identity{
             margin-top: 5px;
