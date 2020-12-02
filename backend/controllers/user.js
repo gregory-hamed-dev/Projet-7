@@ -34,9 +34,9 @@ exports.login = (req, res, next) => {
                         return res.status(401).json({ error: 'Mot de passe erroné  !'})
                     }
                     res.status(200).json({
-                        userId: user.id,
+                        id: user.id,
                         token: jwt.sign(
-                            { userId: user.id, Admin: user.admin},
+                            { id: user.id, Admin: user.admin},
                             '59UiBWftCNG2gqz9bBgy1rYQUkOx9Ewg1o8yEJp2AKIVaunSJt', 
                             {
                                 expiresIn: '12h'
@@ -52,8 +52,9 @@ exports.login = (req, res, next) => {
 //accéder au profil de l'utilisateur
 exports.getUserProfil = (req, res, next) => {
     User.findOne(
-        {attributes: ['id', 'nom_utilisateur', 'description', 'email', 'profil_picture']},
-        {where :{id: req.params.userId}}
+        {where : {id: req.params.userId}},
+        {attributes: ['id', 'nom_utilisateur', 'description', 'email', 'profil_picture']}
+        
     )
     .then(user => res.send(user)      
     )

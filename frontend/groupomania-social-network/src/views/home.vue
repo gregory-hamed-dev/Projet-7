@@ -3,7 +3,7 @@
     <div id="nav">
       <img class="logo" src="../assets/icon-left-font-monochrome-black.svg">
       <div class="links">
-          <a :href="'http://localhost:8080/profil/' + user.userId">modifier profil</a>
+          <a :href="'http://localhost:8080/profil/' + user.id">modifier profil</a>
           <p class="deconnect" @click="logout">Déconnexion</p>
       </div>    
     </div>
@@ -37,7 +37,7 @@ export default {
     mounted() {
       this.token = localStorage.getItem('token');
       this.user = VueJwtDecode.decode(this.token)
-      console.log(this.user.userId)
+      console.log(this.user.id)
     }
 }
 </script>

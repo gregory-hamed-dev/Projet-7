@@ -3,7 +3,7 @@
     <img :src='profilDatas.profil_picture'><br>
     <i>{{profilDatas.email}}</i><br>
     <p class="user-profil" style="margin: 0;"><b>{{profilDatas.nom_utilisateur}}</b> </p>
-    <p v-if="this.user.Admin = true"> <i class="fas fa-crown" style="color: gold;"></i> Modérateur</p>
+    <p v-if="user.Admin === true"> <i class="fas fa-crown" style="color: gold;"></i> Modérateur</p>
     <p class="profil-bio">{{profilDatas.description}}</p>  
 </div> 
 </template>
@@ -14,18 +14,19 @@ export default {
     data(){
         return{
         profilDatas: '',
+        user: '',
         }
     }, 
      mounted () {
             this.token = localStorage.getItem('token');
             const axios = require('axios')
+            this.user = VueJwtDecode.decode(this.token);
             const url = 'http://127.0.0.1:3000/auth/profil/'
             axios.defaults.headers.common['Authorization'] = "Bearer " + this.token;
-            axios.get(url)
+            axios.get(url + this.user.id)
             .then(response => this.profilDatas = response.data)
             .catch(error => console.log(error)) 
-            this.user = VueJwtDecode.decode(this.token);
-
+            
             
         },
 }

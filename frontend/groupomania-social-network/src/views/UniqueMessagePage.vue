@@ -7,7 +7,7 @@
       <div class="links">
           <a href="http://localhost:8080/home">Home</a>
           <img class="avatar" :src="datas.user.profil_picture" alt="">
-          <a :href="'http://localhost:8080/profil/' + user.userId">modifier profil</a>
+          <a :href="'http://localhost:8080/profil/' + user.id">modifier profil</a>
       </div>    
     </div>
 
@@ -70,7 +70,7 @@ export default {
       // Poster un commentaire
       postCom() {
         const url = "http://127.0.0.1:3000/commentaire/"
-        axios.post(url + this.user.userId + '/' + this.$route.params.id , {commentaires: this.comment})
+        axios.post(url + this.user.id + '/' + this.$route.params.id , {commentaires: this.comment})
             .then(
               function(res){
               console.log(res)

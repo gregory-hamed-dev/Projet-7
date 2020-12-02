@@ -38,7 +38,8 @@ const User =  db.define('user', {
     },
     profil_picture :{
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
+        defaultValue: 'http://127.0.0.1:3000/images/default-profile.png'
     },
     admin: {
         type: DataTypes.BOOLEAN,

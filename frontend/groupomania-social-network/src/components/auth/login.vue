@@ -6,9 +6,10 @@
             <input type="email"  id="email" v-model="posts.email">
             <label for="password">Mot de passe</label>
             <input type="password" id="password" v-model="posts.password">
-            <button type="submit">Se connecter</button>
-           
+            <button type="submit">Se connecter</button> 
+            <a href="/signup"><p> Si vous n'avez pas de compte. <span id="inscription">S'inscrire</span></p></a>
         </form>
+        
     </div>
 </template>
 
@@ -38,7 +39,7 @@ export default {
         .then(function(res) {
             console.log(res.data)
             localStorage.setItem("token", res.data.token); 
-            window.location.href=`/home/${res.data.userId}`
+            window.location.href=`/home`
         }
         )
         .catch(error =>  this.error = error.response.data.error)
@@ -96,7 +97,7 @@ input{
 }
 button {
     margin-top: 15px;
-    background: #fc2112;
+    background: rgba(218, 61, 50, 0.6);
     color: white;
     width: 30%;
     padding: 10px;
@@ -105,6 +106,10 @@ button {
      &:hover{
          background: #f55a4f;
      }
+}
+#inscription{
+    color: blue;
+    text-decoration: underline;
 }
 
 </style>

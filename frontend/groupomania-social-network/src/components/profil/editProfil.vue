@@ -15,6 +15,7 @@
                 <input type="email" class="form-control" id="email" v-model="email">
             </div>                                                                                                                                                         
             <div class="form-group">
+                <label for="file" class="label-profil-group" id="label-file">Changer votre avatar</label>
                 <input type="file" id="file" ref="file" accept="image/png, image/jpeg, image/jpg" @change="handleFileUpload()" >
             </div>  
             <button id="submit-profil">Publier profil</button>
@@ -49,8 +50,9 @@ export default {
             const formData = new FormData();
             formData.append('nom_utilisateur', this.name)
             formData.append('image', this.file)
+            formData.append('email', this.email)
             formData.append('description', this.description)
-            axios.put('http://127.0.0.1:3000/auth/profil/modify/' + this.user.userId, formData, {
+            axios.put('http://127.0.0.1:3000/auth/profil/modify/' + this.user.id, formData, {
                 headers : {'Content-Type' : 'multipart/form-data'}
             })
             .then(() => {
@@ -67,8 +69,12 @@ export default {
         this.token = localStorage.getItem('token');
         axios.defaults.headers.common['Authorization'] = "Bearer " + this.token;
         this.user = VueJwtDecode.decode(this.token);
-        axios.get('http://127.0.0.1:3000/auth/profil/')
-        .then(response => (this.name = response.data.nom_utilisateur, this.description = response.data.description, this.avatar = response.data.profil_picture));   
+        axios.get('http://127.0.0.1:3000/auth/profil/' + this.user.id)
+        .then(response => (
+            this.name = response.data.nom_utilisateur, 
+            this.description = response.data.description, 
+            this.avatar = response.data.profil_picture, 
+            this.email = response.data.email));   
      }
 }
  
@@ -104,24 +110,34 @@ export default {
     textarea{
         resize: none;
         font-family: roboto;
+        border: none;
+        padding: 10px;
     }
     input{ 
-        
+        border: none;
         height: 40px;
+        padding: 10px
     }
-    .label-file {
+    #label-file {
     cursor: pointer;
     color: cornsilk;
     font-weight: bold;
-    background: rgb(77, 66, 122);
+    background: rgb(134, 33, 63);
     font-size: 15px;
     padding: 10px;
     transition: 0.5s;
+        &:hover{
+          background: rgb(88, 16, 38);  
+        }
+}
+#file{
+    display: none;
 }
     
 #submit-profil{
     background: rgb(77, 66, 122);
     margin-top: 30px;
+    margin-bottom: 50px;
     padding: 10px;
     width: 25%;
     font-size: 15px;

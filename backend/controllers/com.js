@@ -33,7 +33,6 @@ exports.modifyCom = (req, res, next) => {
 exports.allComs = (req, res, next) => {
     Com.findAll({
         include: [{model : User, attributes: ['nom_utilisateur', 'profil_picture']}],
-        order: [['createdAt','DESC']],
         where :{messageId: req.params.messageId} 
     })
     

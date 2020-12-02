@@ -1,15 +1,15 @@
 <template>  
     <div class="form">
-        <form>
+        <form @submit.prevent="createUser" method="post">
             <img src="../../assets/icon.png" class="signupicon" alt="icone Groupomania">
             <label>
-                <input type="text" class="type text" placeholder="Nom utilisateur">
+                <input type="text" class="type text" placeholder="Nom utilisateur" v-model="posts.name">
             </label>
             <label>
-                <input type="email" class="type email" placeholder="Email">
+                <input type="email" class="type email" placeholder="Email" v-model="posts.email">
             </label>
             <label>
-                <input type="password" class="type password" placeholder="Mot de passe">
+                <input type="password" class="type password" placeholder="Mot de passe" v-model="posts.password">
             </label>
             <button type="submit">S'inscrire</button>
         </form>
@@ -17,8 +17,34 @@
 </template>
 
 <script>
+
 export default {
-    name: 'Signup'
+    name: 'Signup',
+    data() {
+        return {
+            posts: {
+                name:'',
+                email: '',
+                password: '',
+            }
+        }
+    },
+    methods : {
+        createUser() {
+            const axios = require('axios')
+            const url = 'http://127.0.0.1:3000/auth/signup'
+            axios.post(url, {
+                nom_utilisateur: this.posts.name,
+                email: this.posts.email,
+                password: this.posts.password
+            })
+                 .then(function(res) {
+                    console.log(res.data)
+                    window.location.href=`/login`
+                })
+                .catch(error =>  this.error = error.response.data.error)
+                }
+    }
 }
  
 </script>
@@ -27,7 +53,7 @@ export default {
 <style scoped lang="scss">
 
 .form{
-    background: linear-gradient(to right, #fc2112, #f17168 );
+    background: linear-gradient(to right, #b6aaa9, #756564 );
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -65,7 +91,7 @@ input{
 }
 button {
     margin-top: 15px;
-    background: #fc2112;
+    background: rgba(218, 61, 50, 0.6);;
     color: white;
     width: 30%;
     padding: 10px;

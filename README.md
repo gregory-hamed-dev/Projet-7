@@ -11,5 +11,5 @@ Bienvenue sur le projet "Groupoma social network" , pour lancer l'application, s
 
 1. cd frontend/groupomania-social-network
 2. npm install
-3. npm run server
+3. npm run serve
 

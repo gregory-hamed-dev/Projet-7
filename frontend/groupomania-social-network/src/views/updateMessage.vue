@@ -34,7 +34,7 @@ export default {
     methods : {
         updateMessage() {
             const url = 'http://127.0.0.1:3000/message/update/'
-            axios.put(url + this.user.userId + '/' + this.$route.params.id, {title: this.title, post: this.post})
+            axios.put(url + this.user.id + '/' + this.$route.params.id, {title: this.title, post: this.post})
             .then(() => {
                 console.log('modification du message utilisateur réussie')
                 window.location.href = `/home/`
@@ -67,13 +67,13 @@ export default {
    
     height: 75px; 
     resize: none;
-    border: 0.5px solid grey;
+    border: none;
     font-family: $font;
     margin-top: 20px;
     font-size: 17px;
   }
   #article-title{
-    border: 0.5px solid grey;
+    border: none;
     font-family: $font;
     margin-top: 20px;
     font-size: 17px;

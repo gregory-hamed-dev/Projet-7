@@ -2,7 +2,7 @@ const express= require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 const messageCtrl = require('../controllers/message');
-const AdminRole = require("../middleware/AdminRole")
+//const AdminRole = require("../middleware/AdminRole")
 
 'use strict';
 

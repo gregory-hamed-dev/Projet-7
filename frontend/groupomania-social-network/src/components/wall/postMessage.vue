@@ -25,7 +25,7 @@ export default {
         createPost() {
             
             const url = "http://127.0.0.1:3000/message/create/"
-            axios.post(url + this.user.userId, {title: this.title, post: this.post})
+            axios.post(url + this.user.id, {title: this.title, post: this.post})
             .then(
               function(res){
               console.log(res)

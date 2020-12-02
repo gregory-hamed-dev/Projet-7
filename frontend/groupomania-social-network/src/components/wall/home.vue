@@ -13,9 +13,9 @@
             <p class="post">{{data.post}}</p>
             <div id="update-delete-container">
                 <!-- seul l'utilisateur qui a crée le post peut le modifier-->
-                <a :href="'/message/update/' + data.id"><p v-if="user.userId === data.userId" class="button-modify">Modifier</p></a>
+                <a :href="'/message/update/' + data.id"><p v-if="user.id === data.userId" class="button-modify">Modifier</p></a>
                 <!--L'utiisateur qui a crée le post ou le modérateur peuvent effacer le post -->
-                <p v-if="user.userId === data.userId || user.Admin ===true" class="button-delete">Supprimer</p>
+                <p v-if="user.id === data.userId || user.Admin ===true" class="button-delete">Supprimer</p>
             </div>
             <hr style="width: 70%">
             <div class="interaction-user">
@@ -29,18 +29,13 @@
 import VueJwtDecode from 'vue-jwt-decode'
 
 export default {
+    
     name: 'Allmessages',
     data(){
         return {
             datas: '',
             user: null, 
             token: null
-        }
-    },
-    methods: {
-        showModifyForm(){
-            const displayItem = document.querySelector('.submit-modify')
-            displayItem.style.display = 'block'
         }
     },
     mounted () {
