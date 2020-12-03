@@ -1,8 +1,12 @@
 <template>
       <div class="div_post_content">
       <form @submit.prevent="createPost" method="post" id="post-message">
+        <label for="article-title" class="label-profil-group">Titre</label>
         <input id='article-title' type="text" placeholder="Votre titre ..." v-model="title">
-        <textarea id="post_textarea" placeholder="  Votre commentaire ..." maxlength="500" required v-model="post"></textarea>
+        <label for="post-url" class="label-profil-group">Lien à partager</label>
+        <input type="url" id="post-url" placeholder="votre lien..." v-model="url">
+        <label for="post_textarea" class="label-profil-group">Commentaire</label>
+        <textarea id="post_textarea" placeholder="Votre commentaire ..." maxlength="500" required v-model="post"></textarea>
         <input class ="submit-com" type ="submit" value="publier">
       </form>
     </div>
@@ -17,6 +21,7 @@ export default {
         return{
             title: '',
             post: '',
+            url: '',
             user: '',
 
         }
@@ -25,7 +30,7 @@ export default {
         createPost() {
             
             const url = "http://127.0.0.1:3000/message/create/"
-            axios.post(url + this.user.id, {title: this.title, post: this.post})
+            axios.post(url + this.user.id, {title: this.title, post: this.post, url: this.url})
             .then(
               function(res){
               console.log(res)
@@ -58,6 +63,12 @@ export default {
     font-size: 17px;
   }
   #article-title{
+    border: 0.5px solid grey;
+    font-family: $font;
+    margin-top: 20px;
+    font-size: 17px;
+  }
+  #post-url {
     border: 0.5px solid grey;
     font-family: $font;
     margin-top: 20px;

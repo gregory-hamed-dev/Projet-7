@@ -6,7 +6,6 @@
       <img class="logo" src="../assets/icon-left-font-monochrome-black.svg">
       <div class="links">
           <a href="http://localhost:8080/home">Home</a>
-          <img class="avatar" :src="datas.user.profil_picture" alt="">
           <a :href="'http://localhost:8080/profil/' + user.id">modifier profil</a>
       </div>    
     </div>
@@ -17,17 +16,24 @@
         <div class="post-container">
           <div class="info-profil">
             <div class="identity">
-              <img class="avatar" :src="datas.user.profil_picture" alt="">
+              <img class="avatar" :src="datas.user.profil_picture" alt="photo profil">
               <p class="name"> {{datas.user.nom_utilisateur}}</p>  
             </div>
-            <p class='date-post'>publié le {{datas.updatedAt}}</p> 
+            <p class='date-post'>posté le {{datas.date}}</p> 
           </div>
           <h3 class="title">{{datas.title}}</h3>
+          <a :href="datas.url" target="blank" class='url'>{{datas.url}}</a>
           <p class="post">{{datas.post}}</p>
           <hr style="width: 80%">
           <div class="interaction-user">
-              <p><i class="fas fa-heart"></i> {{datas.like}}</p>
+              <p><i v-on:click="counter" class="fas fa-heart"></i> {{datas.like}}</p>
           </div>
+          <div id="update-delete-container">
+                <!-- seul l'utilisateur qui a crée le post peut le modifier-->
+                <a :href="'/message/update/' + datas.id"><p v-if="user.id === datas.userId" class="button-modify">Modifier</p></a>
+                <!--L'utiisateur qui a crée le post ou le modérateur peuvent effacer le post -->
+                <p v-if="user.id === datas.userId || user.Admin ===true" class="button-delete" v-on:click="removeMessage">Supprimer</p>
+            </div>
         </div>
     </div>
 
@@ -43,8 +49,11 @@
 <!-- liste des commentaires de l'article -->
     <div class="comm-message" v-for="com in commentaires" :key="com.id">
       <div class="comm-info">
+        <div class="identity">
         <img class="avatar" :src="com.user.profil_picture" alt="">
         <p class="name">{{com.user.nom_utilisateur}}</p>
+        </div>
+        <p class="dateCom"> réponse le {{com.dateCom}}</p>
       </div>
         <p class="post">{{com.commentaires}}</p>
       </div>
@@ -78,11 +87,23 @@ export default {
               }
             )
             .catch(error =>  this.error = error.response.data.error)
-      }
+      },
+      // supprimer le post et les commentaires liés
+      removeMessage(){
+            const axios = require('axios')
+            const url = 'http://127.0.0.1:3000/message/delete/'
+            axios.delete(url + this.$route.params.id)
+            window.location.href = `/home`
+        },
+         
+        counter() {
+            this.datas.like ++
+        }
+
 
     },
     mounted () {
-            
+        // appel api et authorisation     
             const url = 'http://127.0.0.1:3000/message/'
             this.token = localStorage.getItem('token');
             this.user = VueJwtDecode.decode(this.token);
@@ -94,9 +115,8 @@ export default {
             // accès aux commentaires liés au message posté
             axios.get('http://127.0.0.1:3000/commentaire/' +this.$route.params.id)
              .then(response => this.commentaires = response.data)
-             .catch(error => console.log(error))
-            
-        },
+             .catch(error => console.log(error))   
+    },
 }
 </script>
 
@@ -115,11 +135,6 @@ section{
         display: flex;
         justify-content: space-between;
 
-        .identity{
-            margin-top: 5px;
-            margin-left: 5px;
-            display: flex;
-        }
         h2{
             text-align: left;
         }    
@@ -130,9 +145,16 @@ section{
     margin-right: 20px;
     font-weight: bold;  
 }
-.post, .title{
+
+.post, .title, .url{
         text-align: left;
         margin-left: 25px;
+    }
+
+ .url{
+        display: block;
+        color: blue;
+        text-decoration: underline;
     }
 .avatar{
     width: 40px;
@@ -158,6 +180,13 @@ section{
     color: rgb(202, 25, 179);
 }
 
+/* div avec avatar et nom sur le post et les réponses */
+.identity{
+  margin-top: 5px;
+  margin-left: 5px;
+  display: flex;
+}
+
 /*Liste des commentaires*/ 
 
 .comm-message{
@@ -171,7 +200,7 @@ section{
 }
 .comm-info{
   display: flex;
-  align-items: flex-start;
+  justify-content: space-between;
 }
 
 /* partie commenter*/ 
@@ -200,5 +229,35 @@ section{
     &:hover{
       background: rgb(48, 48, 138);
     }
+}
+
+#update-delete-container {
+    display: flex;
+    justify-content: center;
+}
+.button-modify{
+    background: rgba(100, 163, 100, 0.8);
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 0.5s;
+       
+        &:hover{
+        background: rgb(75, 121, 75);
+        }
+}
+.button-delete{
+    background: rgba(228, 26, 26, 0.8);
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 0.5s;
+
+    &:hover{
+        background: rgb(228, 26, 26);
+        }
+}
+a{
+    padding: 0
 }
 </style>

@@ -5,43 +5,36 @@ const User = require('../models/User');
 const Com = require('../models/Com');
 
 
-//affichage de tous les posts et des auteurs, utilisation d'une fonction sequelize pour faire un select avec jointure sur les deux tables
+//affichage de tous les posts et des auteurs, utilisation d'une fonction sequelize pour faire un select avec jointure
 exports.allPosts = (req, res, next) => {
-   Message.findAll({
-       include: [{model : User, attributes: ['nom_utilisateur', 'profil_picture']} //double jointure sur la table user et la table com
-               // {model: Com, attributes: ['userId', 'commentaires', 'createdAt']}
-        ], 
-       order: [['createdAt','DESC']]// affichage par odre de date de publication 
+    //appel de selection avec formatage de la date
+   Message.findAll({attributes : ['id', 'title', 'post', 'url', 'like', 'userId', [Sequelize.fn('date_format', Sequelize.col('dateCreate'), '%d-%m-%Y'), 'date']],
+       include: [{model : User, attributes: ['nom_utilisateur', 'profil_picture']} //jointure sur la table user
+     ], 
+       order: [['dateCreate','DESC']]// affichage par odre de date de publication descendante
 })
 
     .then(response => res.send(response))
     .catch(error => res.status(401).json({error}))
 }
+
+//afffichage du profil de l'utilisateur
 exports.OnePostDetails = (req, res, next) => {
-    Message.findOne({
+    Message.findOne({attributes : ['id', 'title', 'post', 'url', 'like', 'userId', [Sequelize.fn('date_format', Sequelize.col('dateCreate'), '%d-%m-%Y'), 'date']],
         include: [{model : User, attributes: ['nom_utilisateur', 'profil_picture']}],
         where: {id :req.params.messageId}
     })
         .then(message => res.send(message))
         .catch((error => res.status(404).json({error})))
 }
-// requête pour rechercher des posts contenant les mots entrées dans la barre de recherche dediée 
-/*exports.searchPost = (req, res, next) => {
-    const Op = Sequelize.Op
-    Message.findAll({ 
-        where: {post :{[Op.like] : `%chat%` }} // Op.like = mots clé Like dans un select mysql 
-        }
-    ) 
-    .then( post => res.send(post))
-    .catch( error => res.status(404).json({error}))
-    
-}*/
+
 //création d'un nouveau post
 exports.createNewPost = (req, res, next) => {
     Message.create({
         userId: req.params.userId,
         title: req.body.title,
         post: req.body.post,
+        url : req.body.url
     }).then(() => res.status(201).json({message: 'Post créé avec succès !'}))
       .catch(error => res.status(400).json({error}))
       
@@ -60,11 +53,19 @@ exports.updatePost = (req, res, next) => {
 
 //suppression d'un post
 exports.deleteMessage = (req, res, next) => {
-    Message.destroy({ where :{idMessage: req.params.messageId}})
-        .then( ()=> res.status.json({message: "Votre message a bien été effacé !"}),
-                    
-        )
-        .catch( error => res.status(401).json({error}))
+    // On efface d'abord les commentaires du message 
+  async function deleteCom() {
+    await Com.destroy (
+        {where : {messageId: req.params.messageId}}
+    )} 
+   // On efface ensuite le message
+    async function deleteMess() {
+        await Message.destroy(
+        {where :{id: req.params.messageId}}
+    )}
+    deleteCom();
+    deleteMess();
+    return res.status(200).json()
 }
 
 //like

@@ -40,7 +40,7 @@ export default {
             })
                  .then(function(res) {
                     console.log(res.data)
-                    window.location.href=`/login`
+                    window.location.href= '/'
                 })
                 .catch(error =>  this.error = error.response.data.error)
                 }

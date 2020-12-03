@@ -47,7 +47,10 @@ const User =  db.define('user', {
         defaultValue: 0,
     },
     
-})
+    
+},
+//{timestamps : false}
+)
 //clef étrangère créee automatiquement qui lie la table users avec l'id et la table messages sur la colonne userId
 User.hasMany(Message)
 Message.belongsTo(User)

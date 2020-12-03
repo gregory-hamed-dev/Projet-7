@@ -20,14 +20,33 @@ const Message =  db.define('message', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    url: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     
     like: {
         type: DataTypes.INTEGER,
         defaultValue: 0, 
         allowNull: false
-    }
+    }, 
     
-})
+},
+{
+  
+    // don't forget to enable timestamps!
+    timestamps: true,
+  
+    // I don't want createdAt
+    createdAt: false,
+  
+    // I want updatedAt to actually be called updateTimestamp
+    createdAt: 'dateCreate',
+    updatedAt: 'dateUpdate'
+    
+  }
+    
+)
 Message.hasMany(Com)
 Com.belongsTo(Message)
 

@@ -2,6 +2,7 @@ const Message = require('../models/message')
 const User = require('../models/user')
 const Commentaire = require('../models/com')
 const Com = require('../models/com')
+const Sequelize = require('sequelize');
 
 
 exports.createCom = (req, res, next) => {
@@ -31,7 +32,7 @@ exports.modifyCom = (req, res, next) => {
         .catch(error => res.status(401).json({error}))
 }
 exports.allComs = (req, res, next) => {
-    Com.findAll({
+    Com.findAll({attributes : ['id', 'commentaires','userId', 'messageId', [Sequelize.fn('date_format', Sequelize.col('dateCreateCom'), '%d-%m-%Y'), 'dateCom']],
         include: [{model : User, attributes: ['nom_utilisateur', 'profil_picture']}],
         where :{messageId: req.params.messageId} 
     })

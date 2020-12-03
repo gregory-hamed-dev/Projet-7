@@ -10,6 +10,8 @@
         <form @submit.prevent="updateMessage" method="post" id="post-message">
             <label for="article-title" class="label-profil-group">Titre</label>
             <input id='article-title' type="text" placeholder="Votre titre ..." v-model="title">
+            <label for="post-url" class="label-profil-group">Lien à partager</label>
+            <input type="url" id="post-url" placeholder="votre lien..." v-model="url">
             <label for="post_textarea" class="label-profil-group">commentaire</label>
             <textarea id="post_textarea" placeholder="  Votre commentaire ..." maxlength="500" required v-model="post"></textarea>
             <button class ="submit-com" type ="submit" value="publier">publier</button>
@@ -51,7 +53,7 @@ export default {
             this.user = VueJwtDecode.decode(this.token);
             axios.defaults.headers.common['Authorization'] = "Bearer " + this.token;
             axios.get(url  + this.$route.params.id)
-            .then(response => (this.title = response.data.title, this.post = response.data.post))
+            .then(response => (this.title = response.data.title, this.url = response.data.url, this.post = response.data.post))
             .catch(error => console.log(error))
     }
 }
@@ -73,6 +75,12 @@ export default {
     font-size: 17px;
   }
   #article-title{
+    border: none;
+    font-family: $font;
+    margin-top: 20px;
+    font-size: 17px;
+  }
+  #post-url{
     border: none;
     font-family: $font;
     margin-top: 20px;

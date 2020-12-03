@@ -7,16 +7,11 @@
                     <img class="avatar" :src="data.user.profil_picture" alt="">
                     <p class="name"> {{data.user.nom_utilisateur}}</p>  
                 </div>
-                <p class='date-post'>publié le {{data.updatedAt}}</p> 
+                <p class='date-post'>posté le {{data.date}}</p> 
             </div>
             <h3 class="title">{{data.title}}</h3>
+            <a :href="data.url" target="blank" class="url">{{data.url}}</a>
             <p class="post">{{data.post}}</p>
-            <div id="update-delete-container">
-                <!-- seul l'utilisateur qui a crée le post peut le modifier-->
-                <a :href="'/message/update/' + data.id"><p v-if="user.id === data.userId" class="button-modify">Modifier</p></a>
-                <!--L'utiisateur qui a crée le post ou le modérateur peuvent effacer le post -->
-                <p v-if="user.id === data.userId || user.Admin ===true" class="button-delete">Supprimer</p>
-            </div>
             <hr style="width: 70%">
             <div class="interaction-user">
                 <p><i class="fas fa-heart"></i> {{data.like}}</p>
@@ -48,6 +43,7 @@ export default {
             .then(response => this.datas = response.data)
             .catch(error => console.log(error))    
         },
+        
 }
 </script>
 <style lang ="scss">
@@ -90,9 +86,14 @@ section{
             border-radius: 50%;
         }
     }
-    .post, .title{
+    .post, .title, .url{
         text-align: left;
         margin-left: 25px;
+    }
+    .url{
+        display: block;
+        color: blue;
+        text-decoration: underline;
     }
 }
 
@@ -102,32 +103,6 @@ section{
     margin-left: auto;
     margin-right: auto;
     justify-content: space-around;
-}
-#update-delete-container {
-    display: flex;
-    justify-content: space-around;
-}
-.button-modify{
-    background: rgba(100, 163, 100, 0.8);
-    padding: 10px;
-    color: white;
-    cursor: pointer;
-    transition: 0.5s;
-       
-        &:hover{
-        background: rgb(75, 121, 75);
-        }
-}
-.button-delete{
-    background: rgba(228, 26, 26, 0.8);
-    padding: 10px;
-    color: white;
-    cursor: pointer;
-    transition: 0.5s;
-
-    &:hover{
-        background: rgb(228, 26, 26);
-        }
 }
 .far{
     font-size: 1.2rem;
@@ -140,7 +115,5 @@ section{
 .fa-comment{
     color: rgb(202, 25, 179);
 }
-a{
-    padding: 0
-}
+
 </style>
