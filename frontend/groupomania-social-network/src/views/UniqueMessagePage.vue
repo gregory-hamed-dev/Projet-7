@@ -6,7 +6,7 @@
       <img class="logo" src="../assets/icon-left-font-monochrome-black.svg">
       <div class="links">
           <a href="http://localhost:8080/home">Home</a>
-          <a :href="'http://localhost:8080/profil/' + user.id">modifier profil</a>
+         <!-- <a :href="'http://localhost:8080/profil/' + user.id">modifier profil</a> -->
       </div>    
     </div>
 
@@ -68,7 +68,7 @@ import VueJwtDecode from 'vue-jwt-decode'
 export default {
     data(){
         return {
-            datas: '',
+            datas: null,
             commentaires:'',
             user: null, 
             token: null, 
@@ -259,5 +259,24 @@ section{
 }
 a{
     padding: 0
+}
+//responsive design
+@media (max-width: 850px) {
+
+    .post-container, .comm-message, #dothis{
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    button {
+        width: 50%;
+    }
+    .submit-com{
+        width:80%;
+    }
+    .info-profil, .comm-info{
+      flex-direction: column;
+      align-items: center
+    }
 }
 </style>

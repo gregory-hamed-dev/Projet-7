@@ -16,7 +16,7 @@ connect.authenticate()
      console.error('impossible de se connecter à mysql', err)
  }) 
 
-// création et modification des tables selon les modèles 
+// création des tables selon les modèles dans la base de donnée. 
 connect.sync()
     .then(() => {
         console.log('table(s) créee(s) avec succès')

@@ -11,7 +11,7 @@
             <label for="article-title" class="label-profil-group">Titre</label>
             <input id='article-title' type="text" placeholder="Votre titre ..." v-model="title">
             <label for="post-url" class="label-profil-group">Lien à partager</label>
-            <input type="url" id="post-url" placeholder="votre lien..." v-model="url">
+            <input type="url" id="post-url" placeholder="votre lien...(facultatif)" v-model="url">
             <label for="post_textarea" class="label-profil-group">commentaire</label>
             <textarea id="post_textarea" placeholder="  Votre commentaire ..." maxlength="500" required v-model="post"></textarea>
             <button class ="submit-com" type ="submit" value="publier">publier</button>

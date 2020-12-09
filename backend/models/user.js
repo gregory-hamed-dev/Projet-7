@@ -2,6 +2,7 @@ const {Sequelize, DataTypes} = require('sequelize');
 const db = require('../config/database');
 const Message = require('./Message');
 const Com = require('./com');
+const { validate } = require('./Password');
 
 
 const User =  db.define('user', {
@@ -14,14 +15,10 @@ const User =  db.define('user', {
     nom_utilisateur: {
         type: DataTypes.STRING(50),
         allowNull: false,
-        validate: {
-            // expression régulière pour valider un type de données valide
-            
-        }
     },
     description :{
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
     },
     email: {
         type: DataTypes.STRING(50),

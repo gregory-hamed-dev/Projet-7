@@ -2,10 +2,15 @@
     <div class="form">
         <form @submit.prevent="loginUser" method="post" >
             <img src="../../assets/icon.png" class="signupicon" alt="icone Groupomania">
-            <label for="mail">Email</label>
-            <input type="email"  id="email" v-model="posts.email">
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" v-model="posts.password">
+            <div class="login">
+                <input type="email"  id="email" v-model="posts.email" placeholder="Email">
+                <i class="fas fa-envelope"></i>
+            </div>
+            <div class="login">
+            <input type="password" id="password" v-model="posts.password" placeholder="Mot de passe">
+            <i class="fas fa-lock"></i>
+            </div>
+            <small></small>
             <button type="submit">Se connecter</button> 
             <a href="/signup"><p> Si vous n'avez pas de compte. <span id="inscription">S'inscrire</span></p></a>
         </form>
@@ -42,7 +47,9 @@ export default {
             window.location.href=`/home`
         }
         )
-        .catch(error =>  this.error = error.response.data.error)
+        .catch( function(){
+          document.querySelector('small').innerText = "Mot de passe ou email incorrect"
+        })
 
         
     }
@@ -56,15 +63,14 @@ export default {
 <style scoped lang="scss">
 
 .form{
-    background: linear-gradient(to right, #b6aaa9, #756564 );
+    background: linear-gradient(to right, #827dc5, #4a2c81 );
     display: flex;
-    padding: 80px;
+    width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     
 }
-
 .signupicon{
     width: 250px;
 }
@@ -86,6 +92,7 @@ input{
     height: 20px;
     border-radius: 25px;
     padding: 10px;
+    padding-left: 35px;
     border: 2px solid skyblue;
      &:focus{
         outline: none;
@@ -93,23 +100,46 @@ input{
         
          
      }
-
+}
+.login{
+    position: relative;
+}
+.fas{
+    position: absolute;
+    left: 10px;
+    top: 20px;
+    color: rgba(92, 92, 150, 0.6);
 }
 button {
     margin-top: 15px;
-    background: rgba(218, 61, 50, 0.6);
+    background: #723ed1;
     color: white;
     width: 30%;
     padding: 10px;
+    border: none;
     cursor: pointer;
     transition: 0.5s;
      &:hover{
-         background: #f55a4f;
+         background: #4a2c81;
      }
 }
 #inscription{
     color: blue;
     text-decoration: underline;
+}
+
+//reponsive view 
+@media (max-width: 850px) {
+
+    form{
+        width: 80%;
+    }
+    button {
+        width: 50%;
+    }
+    input{
+        width:80%;
+    }
 }
 
 </style>

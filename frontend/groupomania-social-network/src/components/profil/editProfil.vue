@@ -16,9 +16,11 @@
             </div>                                                                                                                                                         
             <div class="form-group">
                 <label for="file" class="label-profil-group" id="label-file">Changer votre avatar</label>
-                <input type="file" id="file" ref="file" accept="image/png, image/jpeg, image/jpg" @change="handleFileUpload()" >
-            </div>  
+                <input type="file" id="file" name="image" ref="file" accept="image/png, image/jpeg, image/jpg" @change="handleFileUpload()">
+            </div>
+            <img :src="this.image" style="width: 250px">  
             <button id="submit-profil">Publier profil</button>
+            <p class="delete-account" v-on:click="deleteAccount">Supprimer votre compte</p>
         </form>                                                                              
     </div>
 
@@ -35,7 +37,7 @@ export default {
             token: '',
             name:'',
             description:'',
-            avatar: '',
+            image: '',
             user: '',
             email:'',
             file: '',
@@ -62,6 +64,11 @@ export default {
             .catch(() =>{
                 console.log('échec de la modification')
             })
+        },
+        deleteAccount() {
+            const url = 'http://127.0.0.1:3000/auth/profil/delete/'
+            axios.delete(url + this.user.id)
+            window.location.href = `/signup`
         }
      },
      mounted () {
@@ -73,7 +80,7 @@ export default {
         .then(response => (
             this.name = response.data.nom_utilisateur, 
             this.description = response.data.description, 
-            this.avatar = response.data.profil_picture, 
+            this.image = response.data.profil_picture, 
             this.email = response.data.email));   
      }
 }
@@ -147,5 +154,24 @@ export default {
        &:hover {
         background:  rgb(19, 13, 46);
         }
+}
+.delete-account{
+    background: rgb(153, 54, 54);
+    color: white;
+    padding: 10px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+@media (max-width: 850px) {
+
+    form{
+        width: 80%;
+    }
+    #submit-profil {
+        width: 70%;
+    }
+    #email, #name, #description{
+        width:100%;
+    }
 }
 </style>

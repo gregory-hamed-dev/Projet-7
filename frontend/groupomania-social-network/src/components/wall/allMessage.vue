@@ -1,7 +1,6 @@
 <template>
-    <section> 
+    <section id="messages-container"> 
         <div v-for="data in datas" :key="data.id" class='post-container'>
-            
             <div class="info-profil">
                 <div class="identity">
                     <img class="avatar" :src="data.user.profil_picture" alt="">
@@ -47,12 +46,12 @@ export default {
 }
 </script>
 <style lang ="scss">
-section{
+#messages-container{
     width: 50%;
-    margin: 20px auto;
+    margin: 20px;
     font-family: roboto;
     font-size: 14px;
-    padding-bottom: 100px;
+    padding-top: 0;
 
 }
 .post-container{

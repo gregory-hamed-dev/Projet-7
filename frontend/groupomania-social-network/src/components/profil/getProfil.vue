@@ -2,9 +2,10 @@
 <div class="profil-container">
     <img :src='profilDatas.profil_picture'><br>
     <i>{{profilDatas.email}}</i><br>
-    <p class="user-profil" style="margin: 0;"><b>{{profilDatas.nom_utilisateur}}</b> </p>
+    <a href=""><p class="user-profil" style="margin: 0;"><b>{{profilDatas.nom_utilisateur}}</b></p></a>
     <p v-if="user.Admin === true"> <i class="fas fa-crown" style="color: gold;"></i> Modérateur</p>
     <p class="profil-bio">{{profilDatas.description}}</p>  
+    <a :href="'http://localhost:8080/profil'"><i class="fas fa-user-edit"></i></a>
 </div> 
 </template>
 <script>
@@ -36,12 +37,13 @@ export default {
 $marginBtwEl: 20px;
 
  .profil-container{
-     width: 50%;
+     width: 60%;
      margin: 20px auto;
      display: block;
      background: white;
      color: rgb(37, 28, 28);
      padding-bottom: 25px;
+     position: relative;
     
      
         img{
@@ -61,6 +63,11 @@ $marginBtwEl: 20px;
         }
         .user-profil{
             font-size: 18px;
+        }
+        .fa-user-edit{
+            position: absolute;
+            margin-top: 10px;
+            color: rgb(44, 25, 78);
         }
     
  }

@@ -1,15 +1,18 @@
 <template>
-      <div class="div_post_content">
-      <form @submit.prevent="createPost" method="post" id="post-message">
-        <label for="article-title" class="label-profil-group">Titre</label>
-        <input id='article-title' type="text" placeholder="Votre titre ..." v-model="title">
-        <label for="post-url" class="label-profil-group">Lien à partager</label>
-        <input type="url" id="post-url" placeholder="votre lien..." v-model="url">
-        <label for="post_textarea" class="label-profil-group">Commentaire</label>
-        <textarea id="post_textarea" placeholder="Votre commentaire ..." maxlength="500" required v-model="post"></textarea>
-        <input class ="submit-com" type ="submit" value="publier">
-      </form>
-    </div>
+  <div class="div_post_content">
+        <form @submit.prevent="createPost" method="post" id="post-message">
+        <!-- <label for="article-title" class="label-profil-group">Titre</label> -->
+          <input id='article-title' type="text" placeholder="Votre titre ..." v-model="title">
+          <hr>
+      <!--   <label for="post-url" class="label-profil-group">Lien à partager</label> -->
+          <input type="url" id="post-url" placeholder="votre lien...(optionnel)" v-model="url">
+          <hr>
+      <!--   <label for="post_textarea" class="label-profil-group">Commentaire</label> -->
+          <textarea id="post_textarea" placeholder="Votre commentaire ..." maxlength="500" required v-model="post" v-on:keyup='compteur()'></textarea>
+          <p class="compteur"><span class='nbr'>0</span>/500</p>
+          <input class ="submit-com" type ="submit" value="publier">
+        </form>
+  </div>
 </template>
 <script>
 import VueJwtDecode from 'vue-jwt-decode';
@@ -27,16 +30,16 @@ export default {
         }
     },
     methods: {
+      compteur(){
+        const numberIte = document.querySelector(".nbr")
+        const textArea = document.getElementById('post_textarea')
+        numberIte.innerHTML = textArea.value.length
+      },
         createPost() {
             
             const url = "http://127.0.0.1:3000/message/create/"
             axios.post(url + this.user.id, {title: this.title, post: this.post, url: this.url})
-            .then(
-              function(res){
-              console.log(res)
-              window.location.href = ("/home")
-              }
-            )
+            .then(()=>{window.location.href = ("/home")})
             .catch(error =>  this.error = error.response.data.error)
         }
     },
@@ -51,27 +54,28 @@ export default {
 </script>
 <style scoped lang="scss" >
  $font: roboto;
-
+ $border-input-style: none;
+ $input-margin-top: 1px;
 
  #post_textarea{
    
     height: 75px; 
     resize: none;
-    border: 0.5px solid grey;
+    border: $border-input-style ;
     font-family: $font;
-    margin-top: 20px;
+    margin-top: $input-margin-top;
     font-size: 17px;
   }
   #article-title{
-    border: 0.5px solid grey;
+    border: $border-input-style;
     font-family: $font;
-    margin-top: 20px;
+    margin-top: $input-margin-top;
     font-size: 17px;
   }
   #post-url {
-    border: 0.5px solid grey;
+    border: $border-input-style;
     font-family: $font;
-    margin-top: 20px;
+    margin-top: $input-margin-top;
     font-size: 17px;
   }
  
@@ -98,5 +102,11 @@ export default {
       margin-left: auto;
       margin-right: auto;
 
+  }
+  .compteur{
+    width: 100%;
+    margin-top: 0;
+    text-align: right;
+    background: white;
   }
 </style>

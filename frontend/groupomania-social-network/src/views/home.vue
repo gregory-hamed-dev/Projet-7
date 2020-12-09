@@ -1,27 +1,34 @@
 <template>
-  <div class="container">
+  <div class="main-container">
     <div id="nav">
       <img class="logo" src="../assets/icon-left-font-monochrome-black.svg">
       <div class="links">
-          <a :href="'http://localhost:8080/profil/' + user.id">modifier profil</a>
+         <!-- <a :href="'http://localhost:8080/profil/' + user.id">modifier profil</a> -->
           <p class="deconnect" @click="logout">Déconnexion</p>
       </div>    
     </div>
     <Profil></Profil>
-    <a href="../message/create"><p id="sendMess">Créer nouvel article</p></a>
-    <Allmessages></Allmessages>
+    <a href="../message/create"><p id="sendMess"><i class="fas fa-pen"></i>Nouveau post</p></a>
+    <section class="container">
+        <Allmessages></Allmessages>
+     <!--   <AllUsers></AllUsers> -->
+
+    </section>
   </div>
 </template>
 
 <script>
 import Profil from '../components/profil/getProfil'
-import Allmessages from '../components/wall/home'
+import Allmessages from '../components/wall/allMessage'
 import VueJwtDecode from 'vue-jwt-decode';
+//import AllUsers from '../components/wall/allUsers'
+
 export default {
     name: 'Home',
     components: {
       Allmessages,
-      Profil
+      Profil,
+     // AllUsers
     },
     data() { 
       return {
@@ -44,7 +51,7 @@ export default {
 
 <style lang="scss" scoped>
   $font: roboto;
-  .container{
+  .main-container{
     font-family: $font ; 
   }
   .avatar{
@@ -64,5 +71,9 @@ export default {
         background: rgba(67, 67, 114, 0.8);
       }
   }
-
+ .container{
+   display: flex;
+   justify-content: center;
+ }
+ 
 </style>

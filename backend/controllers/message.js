@@ -9,11 +9,11 @@ const Com = require('../models/Com');
 exports.allPosts = (req, res, next) => {
     //appel de selection avec formatage de la date
    Message.findAll({attributes : ['id', 'title', 'post', 'url', 'like', 'userId', [Sequelize.fn('date_format', Sequelize.col('dateCreate'), '%d-%m-%Y'), 'date']],
-       include: [{model : User, attributes: ['nom_utilisateur', 'profil_picture']} //jointure sur la table user
-     ], 
-       order: [['dateCreate','DESC']]// affichage par odre de date de publication descendante
-})
-
+       //jointure sur la table user
+       include: [{model : User, attributes: ['nom_utilisateur', 'profil_picture']}],
+       // affichage par odre de date de publication descendante
+       order: [['dateCreate','DESC']]
+    })
     .then(response => res.send(response))
     .catch(error => res.status(401).json({error}))
 }
@@ -65,7 +65,7 @@ exports.deleteMessage = (req, res, next) => {
     )}
     deleteCom();
     deleteMess();
-    return res.status(200).json()
+    return res.status(200).json({message: 'Suppression réussie des messages et des commentaires associés'})
 }
 
 //like
