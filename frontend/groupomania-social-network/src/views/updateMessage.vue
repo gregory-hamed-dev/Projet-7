@@ -9,11 +9,13 @@
         <div class="div_post_content">
         <form @submit.prevent="updateMessage" method="post" id="post-message">
             <label for="article-title" class="label-profil-group">Titre</label>
-            <input id='article-title' type="text" placeholder="Votre titre ..." v-model="title">
+            <input id='article-title' type="text" placeholder="Votre titre ..." maxlength="45" v-model="title" v-on:keyup="titleCompteur()">
+            <p class="compteur"><span class='nbrTitle'>0</span>/45</p>
             <label for="post-url" class="label-profil-group">Lien à partager</label>
             <input type="url" id="post-url" placeholder="votre lien...(facultatif)" v-model="url">
-            <label for="post_textarea" class="label-profil-group">commentaire</label>
-            <textarea id="post_textarea" placeholder="  Votre commentaire ..." maxlength="500" required v-model="post"></textarea>
+            <label for="post_textarea" class="label-profil-group">Commentaire</label>
+            <textarea id="post_textarea" placeholder="  Votre commentaire ..." maxlength="500" required v-model="post" v-on:keyup='compteur()'></textarea>
+            <p class="compteur"><span class='nbr'>0</span>/500</p>
             <button class ="submit-com" type ="submit" value="publier">publier</button>
         </form>
     </div>
@@ -34,6 +36,19 @@ export default {
         }
     },
     methods : {
+        //compteur de caractères pour le titre
+        titleCompteur() {
+            const titleCompt = document.querySelector(".nbrTitle")
+            const titleArea = document.getElementById('article-title')
+            titleCompt.innerHTML= titleArea.value.length
+
+        },
+        //compteur de caractères pour le corps du post
+         compteur(){
+            const numberIte = document.querySelector(".nbr")
+            const textArea = document.getElementById('post_textarea')
+            numberIte.innerHTML = textArea.value.length
+      },
         updateMessage() {
             const url = 'http://127.0.0.1:3000/message/update/'
             axios.put(url + this.user.id + '/' + this.$route.params.id, {title: this.title, post: this.post})
@@ -62,6 +77,9 @@ export default {
 </script>
 <style lang='scss'>
  $font: roboto;
+ $font-size: 16px;
+
+
  .div_post_content{
      margin-top: 25px;
  }
@@ -72,19 +90,19 @@ export default {
     border: none;
     font-family: $font;
     margin-top: 20px;
-    font-size: 17px;
+    font-size: $font-size;
   }
   #article-title{
     border: none;
     font-family: $font;
     margin-top: 20px;
-    font-size: 17px;
+    font-size: $font-size;
   }
   #post-url{
     border: none;
     font-family: $font;
     margin-top: 20px;
-    font-size: 17px;
+    font-size: $font-size;
   }
  
   .submit-com{
@@ -95,6 +113,8 @@ export default {
     padding: 5px 10px;
     font-family: $font;
     width: 100px;
+    border: none;
+    padding: 10px;
     cursor: pointer;
     transition: 0.7s;
       
@@ -110,5 +130,19 @@ export default {
       margin-left: auto;
       margin-right: auto;
 
+  }
+   .compteur{
+    width: 100%;
+    margin-top: 0;
+    text-align: right;
+    background: white;
+  }
+  label{
+      margin-top: 15px;
+  }
+  @media (max-width: 850px){
+      #post-message{
+          width: 90%;
+      }
   }
 </style>

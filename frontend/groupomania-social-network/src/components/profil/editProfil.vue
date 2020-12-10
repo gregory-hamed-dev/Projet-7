@@ -20,7 +20,8 @@
             </div>
             <img :src="this.image" style="width: 250px">  
             <button id="submit-profil">Publier profil</button>
-            <p class="delete-account" v-on:click="deleteAccount">Supprimer votre compte</p>
+            <p class="supp-activation" v-on:click="activeDelete">Supprimer votre compte</p>
+            <p class="delete-account" v-on:click="deleteAccount">Confirmer</p>
         </form>                                                                              
     </div>
 
@@ -64,6 +65,13 @@ export default {
             .catch(() =>{
                 console.log('échec de la modification')
             })
+        },
+        activeDelete(){
+            const deleteButton = document.querySelector(".delete-account")
+            const activateSupp = document.querySelector(".supp-activation")
+            activateSupp.style.display= 'none';
+            deleteButton.style.display= 'block';
+
         },
         deleteAccount() {
             const url = 'http://127.0.0.1:3000/auth/profil/delete/'
@@ -156,6 +164,14 @@ export default {
         }
 }
 .delete-account{
+    background: rgb(153, 54, 54);
+    color: white;
+    display: none;
+    padding: 10px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+.supp-activation{
     background: rgb(153, 54, 54);
     color: white;
     padding: 10px;

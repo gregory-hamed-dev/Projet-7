@@ -17,7 +17,7 @@ const Message =  db.define('message', {
     },
 
     post: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
         allowNull: false
     },
     url: {

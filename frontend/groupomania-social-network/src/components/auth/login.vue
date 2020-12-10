@@ -137,7 +137,7 @@ button {
     button {
         width: 50%;
     }
-    input{
+    #password, #email{
         width:80%;
     }
 }

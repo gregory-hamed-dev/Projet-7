@@ -3,8 +3,8 @@
         <div id="nav">
             <img class="logo" src="../assets/icon-left-font-monochrome-black.svg">
             <div class="links">
-                <a href="http://localhost:8080/home">Home</a>
-                <p class="deconnect" @click="logout">Déconnexion</p>
+                <p><a href="http://localhost:8080/home">Home</a></p>
+                <p @click="logout">Déconnexion</p>
             </div>    
         </div>
         <h1>Publication</h1>

@@ -40,3 +40,9 @@ exports.allComs = (req, res, next) => {
     .then(response => res.send(response))
     .catch(error => res.status(401).json({error}))
 }
+
+exports.deleteCom =  (req, res, next) =>{
+    Com.destroy({where : {id :req.params.id}})
+    .then(() => res.status(200).json({message: 'Commentaire effacé'}))
+    .catch(error => res.status(401).json({error}) )
+}

@@ -2,7 +2,8 @@
   <div class="div_post_content">
         <form @submit.prevent="createPost" method="post" id="post-message">
         <!-- <label for="article-title" class="label-profil-group">Titre</label> -->
-          <input id='article-title' type="text" placeholder="Votre titre ..." v-model="title">
+          <input id='article-title' type="text" placeholder="Votre titre ..." maxlength="45" v-model="title" v-on:keyup="titleCompteur()">
+          <p class="compteur"><span class='nbrTitle'>0</span>/45</p>
           <hr>
       <!--   <label for="post-url" class="label-profil-group">Lien à partager</label> -->
           <input type="url" id="post-url" placeholder="votre lien...(optionnel)" v-model="url">
@@ -30,6 +31,12 @@ export default {
         }
     },
     methods: {
+      titleCompteur() {
+            const titleCompt = document.querySelector(".nbrTitle")
+            const titleArea = document.getElementById('article-title')
+            titleCompt.innerHTML= titleArea.value.length
+
+      },
       compteur(){
         const numberIte = document.querySelector(".nbr")
         const textArea = document.getElementById('post_textarea')
@@ -56,6 +63,7 @@ export default {
  $font: roboto;
  $border-input-style: none;
  $input-margin-top: 1px;
+ $font-size : 16px;
 
  #post_textarea{
    
@@ -64,19 +72,19 @@ export default {
     border: $border-input-style ;
     font-family: $font;
     margin-top: $input-margin-top;
-    font-size: 17px;
+    font-size: $font-size;
   }
   #article-title{
     border: $border-input-style;
     font-family: $font;
     margin-top: $input-margin-top;
-    font-size: 17px;
+    font-size: $font-size;
   }
   #post-url {
     border: $border-input-style;
     font-family: $font;
     margin-top: $input-margin-top;
-    font-size: 17px;
+    font-size: $font-size;
   }
  
   .submit-com{
@@ -108,5 +116,10 @@ export default {
     margin-top: 0;
     text-align: right;
     background: white;
+  }
+  @media (max-width: 850px){
+    #post-message{
+      width: 90%;
+    }
   }
 </style>

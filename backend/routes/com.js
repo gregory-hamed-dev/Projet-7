@@ -9,5 +9,6 @@ const { route } = require('./User')
 router.post('/:userId/:messageId', auth, commCtrl.createCom) // *** test route ok ***
 router.put('/modify/:id', auth, commCtrl.modifyCom)
 router.get('/:messageId', auth, commCtrl.allComs ) //*** test route ok ***
+router.delete('/delete/:id', auth, commCtrl.deleteCom)
 
 module.exports = router

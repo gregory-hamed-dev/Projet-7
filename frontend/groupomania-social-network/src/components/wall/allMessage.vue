@@ -4,16 +4,15 @@
             <div class="info-profil">
                 <div class="identity">
                     <img class="avatar" :src="data.user.profil_picture" alt="">
-                    <p class="name"> {{data.user.nom_utilisateur}}</p>  
+                    <p class="name"><a :href="'/profil/' + data.userId"> {{data.user.nom_utilisateur}}</a></p>  
                 </div>
                 <p class='date-post'>posté le {{data.date}}</p> 
             </div>
             <h3 class="title">{{data.title}}</h3>
-            <a :href="data.url" target="blank" class="url">{{data.url}}</a>
+            <a v-if="data.url !== null" :href="data.url" target="blank" class="url"><i class="far fa-eye"></i></a>
             <p class="post">{{data.post}}</p>
             <hr style="width: 70%">
             <div class="interaction-user">
-                <p><i class="fas fa-heart"></i> {{data.like}}</p>
                 <a :href="'/message/' + data.id"><p><i class="far fa-comment"></i></p></a>
             </div>
         </div>
@@ -88,10 +87,11 @@ export default {
     .post, .title, .url{
         text-align: left;
         margin-left: 25px;
+        
     }
     .url{
         display: block;
-        color: blue;
+        color: rgb(177, 156, 42);
         text-decoration: underline;
     }
 }
@@ -106,13 +106,27 @@ export default {
 .far{
     font-size: 1.2rem;
 }
-.fa-heart {
- margin-right: 5px;
- color: rgb(170, 22, 35);
- cursor: pointer;
-}
 .fa-comment{
     color: rgb(202, 25, 179);
 }
+/* responsive design*/
+@media (max-width: 850px) {
+    #messages-container{
+        width: 95%;
+    }
+    .post, .title{
+        width: 90%;
+        text-align: center;
+    }
+    .url{
+        width: 300px;
+    }
+    .info-profil{
+        flex-direction: column;
+    }
+    .identity{
+        justify-content: center;
+    }
 
+}
 </style>

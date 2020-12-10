@@ -42,6 +42,18 @@ const routes = [
      path: '/message/update/:id',
      name: 'updateMessage',
      component: () => import ('../views/updateMessage.vue')
+   },
+   {
+     path: '/commentaire/:id',
+     name: 'deleteCom',
+     component: () => import ('../views/removeCom.vue')
+   },
+
+   {
+     path: '/profil/:id',
+     name: 'uniqueUserProfil',
+     component: () => import ('../views/UniqueUserPage.vue')
+
    }
   
 ]

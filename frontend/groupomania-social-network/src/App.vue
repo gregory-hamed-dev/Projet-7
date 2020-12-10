@@ -20,6 +20,7 @@
   font-size: 14px;
   text-align: center;
   color: #2c3e50;
+  box-sizing: border-box;
   
 }
 
@@ -61,5 +62,22 @@
   }
   .deconnect{
     cursor: pointer;
+  }
+  /* responsive-design*/
+  @media (max-width: 850px) {
+    #nav{
+      flex-direction: column;
+      align-items: center;
+    }
+    .links{
+      width: 100%;
+      margin: 0 auto;
+      text-align: center;
+      display: block;
+    }
+   
+    .logo{
+      margin-bottom: 25px;
+    }
   }
 </style>

@@ -22,17 +22,17 @@
             <p class='date-post'>posté le {{datas.date}}</p> 
           </div>
           <h3 class="title">{{datas.title}}</h3>
-          <a :href="datas.url" target="blank" class='url'>{{datas.url}}</a>
+          <a v-if="datas.url !== null" :href="datas.url" target="blank" class="url"><i class="far fa-eye"></i></a>
           <p class="post">{{datas.post}}</p>
           <hr style="width: 80%">
           <div class="interaction-user">
-              <p><i v-on:click="counter" class="fas fa-heart"></i> {{datas.like}}</p>
+             <!-- <p><i class="fas fa-heart"></i> {{datas.like}}</p> -->
           </div>
           <div id="update-delete-container">
                 <!-- seul l'utilisateur qui a crée le post peut le modifier-->
-                <a :href="'/message/update/' + datas.id"><p v-if="user.id === datas.userId" class="button-modify">Modifier</p></a>
+                <a :href="'/message/update/' + datas.id"><p v-if="user.id === datas.userId" class="button-modify"><i class="far fa-edit"></i></p></a>
                 <!--L'utiisateur qui a crée le post ou le modérateur peuvent effacer le post -->
-                <p v-if="user.id === datas.userId || user.Admin ===true" class="button-delete" v-on:click="removeMessage">Supprimer</p>
+                <p v-if="user.id === datas.userId || user.Admin ===true" class="button-delete" v-on:click="removeMessage"><i class="far fa-trash-alt"></i></p>
             </div>
         </div>
     </div>
@@ -56,6 +56,8 @@
         <p class="dateCom"> réponse le {{com.dateCom}}</p>
       </div>
         <p class="post">{{com.commentaires}}</p>
+         <hr style="width: 80%">
+        <a :href="'/commentaire/' + com.id"><p v-if="user.id === com.userId || user.Admin ===true"><i class="far fa-trash-alt"></i></p></a>
       </div>
   </section>  
 </template>
@@ -69,7 +71,8 @@ export default {
     data(){
         return {
             datas: null,
-            commentaires:'',
+            commentaires:[],
+            com:'',
             user: null, 
             token: null, 
             comment: '',
@@ -95,12 +98,6 @@ export default {
             axios.delete(url + this.$route.params.id)
             window.location.href = `/home`
         },
-         
-        counter() {
-            this.datas.like ++
-        }
-
-
     },
     mounted () {
         // appel api et authorisation     
@@ -153,7 +150,7 @@ section{
 
  .url{
         display: block;
-        color: blue;
+        color:rgb(177, 156, 42);
         text-decoration: underline;
     }
 .avatar{
@@ -233,34 +230,17 @@ section{
 
 #update-delete-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
 }
-.button-modify{
-    background: rgba(100, 163, 100, 0.8);
-    padding: 10px;
-    color: white;
-    cursor: pointer;
-    transition: 0.5s;
-       
-        &:hover{
-        background: rgb(75, 121, 75);
-        }
+.button-modify, .button-delete{
+    cursor: pointer;     
 }
-.button-delete{
-    background: rgba(228, 26, 26, 0.8);
-    padding: 10px;
-    color: white;
-    cursor: pointer;
-    transition: 0.5s;
 
-    &:hover{
-        background: rgb(228, 26, 26);
-        }
-}
 a{
     padding: 0
 }
 //responsive design
+
 @media (max-width: 850px) {
 
     .post-container, .comm-message, #dothis{

@@ -63,7 +63,7 @@ exports.getAllUsers = (req, res, next) => {
 exports.getUserProfil = (req, res, next) => {
     User.findOne(
         {where : {id: req.params.userId}},
-        {attributes: ['id', 'nom_utilisateur', 'description', 'email', 'profil_picture']}
+        {attributes: ['id', 'nom_utilisateur', 'description', 'email', 'profil_picture', 'admin']}
         
     )
     .then(user => res.send(user)      

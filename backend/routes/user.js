@@ -10,6 +10,6 @@ router.post('/login', passwordValidator, userCtrl.login) // *** test route ok **
 router.get('/profils',auth, userCtrl.getAllUsers) // *** test route ok ***
 router.get('/profil/:userId', auth, userCtrl.getUserProfil) // *** test route ok ***
 router.put('/profil/modify/:userId', auth, multerConfiguration, userCtrl.modifyUser) // *** test route ok ***
-router.delete('/profil/delete/:userId', auth, userCtrl.deleteUser)
+router.delete('/profil/delete/:userId', auth, userCtrl.deleteUser) // *** test route ok ***
 
 module.exports = router;

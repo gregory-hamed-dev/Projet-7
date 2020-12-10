@@ -3,7 +3,6 @@
     <div id="nav">
       <img class="logo" src="../assets/icon-left-font-monochrome-black.svg">
       <div class="links">
-         <!-- <a :href="'http://localhost:8080/profil/' + user.id">modifier profil</a> -->
           <p class="deconnect" @click="logout">Déconnexion</p>
       </div>    
     </div>
@@ -11,8 +10,7 @@
     <a href="../message/create"><p id="sendMess"><i class="fas fa-pen"></i>Nouveau post</p></a>
     <section class="container">
         <Allmessages></Allmessages>
-     <!--   <AllUsers></AllUsers> -->
-
+  
     </section>
   </div>
 </template>
@@ -21,14 +19,12 @@
 import Profil from '../components/profil/getProfil'
 import Allmessages from '../components/wall/allMessage'
 import VueJwtDecode from 'vue-jwt-decode';
-//import AllUsers from '../components/wall/allUsers'
 
 export default {
     name: 'Home',
     components: {
       Allmessages,
       Profil,
-     // AllUsers
     },
     data() { 
       return {
@@ -75,5 +71,10 @@ export default {
    display: flex;
    justify-content: center;
  }
- 
+ //responsive vue 
+ @media (max-width: 850px) {
+   #sendMess{
+     width: 50%;
+   }
+ }
 </style>
