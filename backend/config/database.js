@@ -19,7 +19,7 @@ connect.authenticate()
 // création des tables selon les modèles dans la base de donnée. 
 connect.sync()
     .then(() => {
-        console.log('table(s) créee(s) avec succès')
+        console.log('table(s) créée(s) avec succès')
   }).catch(err => console.log(err)) 
 
 module.exports = connect;

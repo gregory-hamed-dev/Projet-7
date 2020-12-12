@@ -16,9 +16,9 @@
             </div>                                                                                                                                                         
             <div class="form-group">
                 <label for="file" class="label-profil-group" id="label-file">Changer votre avatar</label>
-                <input type="file" id="file" name="image" ref="file" accept="image/png, image/jpeg, image/jpg" @change="handleFileUpload()">
+                <input type="file" id="file" name="image" ref="file" accept="image/png, image/jpeg, image/jpg" @change="handleFileUpload()" v-on:change="preview()">
             </div>
-            <img :src="this.image" style="width: 250px">  
+            <img id="preview" :src="this.image" style="width: 250px">  
             <button id="submit-profil">Publier profil</button>
             <p class="supp-activation" v-on:click="activeDelete">Supprimer votre compte</p>
             <p class="delete-account" v-on:click="deleteAccount">Confirmer</p>
@@ -48,6 +48,17 @@ export default {
      methods: {
         handleFileUpload() {
         this.file = this.$refs.file.files[0];
+        },
+        // prévisualisation de l'image uploadée
+        preview(){
+            const fileObject = this.$refs.file.files[0];
+            const fileReader = new FileReader()
+            fileReader.readAsDataURL(fileObject)
+            fileReader.onload = ()=> {
+                let result = fileReader.result
+                const img = document.getElementById('preview')
+                img.setAttribute('src', result)
+            }
         },
         editProfil() {
             const formData = new FormData();

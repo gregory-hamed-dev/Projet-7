@@ -25,12 +25,6 @@ const Message =  db.define('message', {
         allowNull: true
     },
     
-    like: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0, 
-        allowNull: false
-    }, 
-    
 },
 {
   

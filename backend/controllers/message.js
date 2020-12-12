@@ -8,7 +8,7 @@ const Com = require('../models/Com');
 //affichage de tous les posts et des auteurs, utilisation d'une fonction sequelize pour faire un select avec jointure
 exports.allPosts = (req, res, next) => {
     //appel de selection avec formatage de la date
-   Message.findAll({attributes : ['id', 'title', 'post', 'url', 'like', 'userId', [Sequelize.fn('date_format', Sequelize.col('dateCreate'), '%d-%m-%Y'), 'date']],
+   Message.findAll({attributes : ['id', 'title', 'post', 'url', 'userId', [Sequelize.fn('date_format', Sequelize.col('dateCreate'), '%d-%m-%Y'), 'date']],
        //jointure sur la table user
        include: [{model : User, attributes: ['nom_utilisateur', 'profil_picture']}],
        // affichage par odre de date de publication descendante
@@ -20,7 +20,7 @@ exports.allPosts = (req, res, next) => {
 
 //afffichage du profil de l'utilisateur
 exports.OnePostDetails = (req, res, next) => {
-    Message.findOne({attributes : ['id', 'title', 'post', 'url', 'like', 'userId', [Sequelize.fn('date_format', Sequelize.col('dateCreate'), '%d-%m-%Y'), 'date']],
+    Message.findOne({attributes : ['id', 'title', 'post', 'url', 'userId', [Sequelize.fn('date_format', Sequelize.col('dateCreate'), '%d-%m-%Y'), 'date']],
         include: [{model : User, attributes: ['nom_utilisateur', 'profil_picture']}],
         where: {id :req.params.messageId}
     })
@@ -68,13 +68,4 @@ exports.deleteMessage = (req, res, next) => {
     return res.status(200).json({message: 'Suppression réussie des messages et des commentaires associés'})
 }
 
-//like
-exports.incrementLike = (req, res, next) => {
-    Message.findByPk(req.params.messageId)
-    .then(like => {
-          return  like.increment("like", {by : 1})
-    })
-    .then(() => res.status(201).json({message: "like ajouté"}))
-    .catch(error => res.status(400).json({error}))
-}
 
