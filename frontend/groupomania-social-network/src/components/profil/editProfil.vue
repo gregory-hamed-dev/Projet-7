@@ -4,7 +4,7 @@
         <form action="submit" @submit.prevent="editProfil" class="user-modify" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name" class="label-profil-group">Nom utilisateur</label>
-                <input type="text" class="form-control" id="name" v-model="name">
+                <input type="text" class="form-control" id="name" v-model="name" maxlength="50">
             </div>                                                                                
             <div class="form-group">
                 <label for="description" class="label-profil-group">description</label>

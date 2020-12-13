@@ -3,7 +3,7 @@
         <form @submit.prevent="createUser" method="post">
             <img src="../../assets/icon.png" class="signupicon" alt="icone Groupomania">
                 <div class="edit-info">
-                    <input type="text" class="type text" placeholder="Nom utilisateur" required v-model="posts.name">
+                    <input type="text" class="type text" placeholder="Nom utilisateur" required v-model="posts.name" maxlength="50">
                     <i class="fas fa-user"></i>
                 </div>
                 <div class="edit-info">
