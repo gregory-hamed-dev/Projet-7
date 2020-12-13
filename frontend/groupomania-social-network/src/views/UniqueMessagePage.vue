@@ -209,7 +209,7 @@ section{
 #post-com{
   display: block;
   width: 100%;
-  border: 0px solid;
+  border: none;
   padding-left: 10px;
   font-size: 14px;
   height: 50px;
@@ -220,6 +220,7 @@ section{
   color: white;
   background: rgb(110, 110, 180);
   margin-top: 5px;
+  border: none;
   cursor: pointer;
   transition: 0.6s;
 
