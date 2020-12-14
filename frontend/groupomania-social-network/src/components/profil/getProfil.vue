@@ -1,6 +1,6 @@
 <template>
 <div class="profil-container">
-    <img :src='profilDatas.profil_picture'><br>
+    <img :src='profilDatas.profil_picture' alt="image de profil"><br>
     <i>{{profilDatas.email}}</i><br>
     <p class="user-profil" style="margin: 0;"><b>{{profilDatas.nom_utilisateur}}</b></p>
     <p v-if="user.Admin === true"> <i class="fas fa-crown" style="color: gold;"></i> Modérateur</p>

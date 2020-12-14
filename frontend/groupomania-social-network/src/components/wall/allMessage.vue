@@ -9,7 +9,7 @@
                 <p class='date-post'>posté le {{data.date}}</p> 
             </div>
             <h3 class="title">{{data.title}}</h3>
-            <a v-if="data.url !== null" :href="data.url" target="blank" class="url"><i class="far fa-eye"></i></a>
+            <a v-if="data.url !== null" :href="data.url" target="_blank" class="url"><i class="far fa-eye"></i></a>
             <p class="post">{{data.post}}</p>
             <hr style="width: 70%">
             <div class="interaction-user">

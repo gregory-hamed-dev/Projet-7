@@ -25,7 +25,7 @@ export default {
         return{
             title: '',
             post: '',
-            url: '',
+            url: null,
             user: '',
 
         }

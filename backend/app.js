@@ -6,6 +6,7 @@ const messageRoutes = require('./routes/message');
 const comRoutes =  require('./routes/com')
 const path = require('path')
 const cookieSession = require('cookie-session')
+const helmet = require('helmet')
 
 
 // Paramétrages des en-têtes de requêtes
@@ -17,7 +18,7 @@ app.use((req, res, next) => {
     next();
   });
   
-app.disable("x-powered-by")
+
 
 //paramètres des cookies pour le http only pour éviter la modification par un tiers
 app.use(cookieSession({
@@ -29,6 +30,10 @@ app.use(cookieSession({
   }
 })
 );
+//couche de sécurité pour éviter les attaques courantes
+app.use(helmet.xssFilter())
+app.use(helmet.noSniff());
+app.use(helmet.hidePoweredBy());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
