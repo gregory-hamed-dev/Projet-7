@@ -31,6 +31,7 @@ export default {
         return{
             title: '',
             post: '',
+            url: null,
             user: '',
             token: ''
         }
@@ -51,7 +52,7 @@ export default {
       },
         updateMessage() {
             const url = 'http://127.0.0.1:3000/message/update/'
-            axios.put(url + this.user.id + '/' + this.$route.params.id, {title: this.title, post: this.post})
+            axios.put(url + this.user.id + '/' + this.$route.params.id, {title: this.title, post: this.post, url: this.url})
             .then(() => {
                 console.log('modification du message utilisateur réussie')
                 window.location.href = `/home/`

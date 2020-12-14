@@ -44,7 +44,8 @@ exports.createNewPost = (req, res, next) => {
 exports.updatePost = (req, res, next) => {
     Message.update(
         {title: req.body.title, 
-        post: req.body.post},
+        post: req.body.post,
+        url: req.body.url},
         {where : {id: req.params.messageId}}
     )
     .then(() => res.status(201).json({message: 'Vous avez modifié le post'}))
