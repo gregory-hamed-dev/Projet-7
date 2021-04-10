@@ -5,7 +5,7 @@
     <div id="nav">
       <img class="logo" src="../assets/icon-left-font-monochrome-black.svg">
       <div class="links">
-          <a href="http://localhost:8080/home">Home</a>
+          <router-link to="/home">Home</router-link>
          <!-- <a :href="'http://localhost:8080/profil/' + user.id">modifier profil</a> -->
       </div>    
     </div>
@@ -22,7 +22,9 @@
             <p class='date-post'>posté le {{datas.date}}</p> 
           </div>
           <h3 class="title">{{datas.title}}</h3>
-          <a v-if="datas.url !== null" :href="datas.url" target="blank" class="url"><i class="far fa-eye"></i></a>
+          <a v-if="datas.url !== null" :href="datas.url" target="blank" class="url">
+            <iframe width="500" height="300" :src="datas.url.replace('watch?v=', 'embed/')" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </a>
           <p class="post">{{datas.post}}</p>
           <hr style="width: 80%">
           <div class="interaction-user">
@@ -144,7 +146,7 @@ section{
 }
 
 .post, .title, .url{
-        text-align: left;
+        text-align: center;
         margin-left: 25px;
     }
 

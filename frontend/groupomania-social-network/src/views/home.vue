@@ -7,15 +7,16 @@
       </div>    
     </div>
     <Profil></Profil>
-    <a href="../message/create"><p id="sendMess"><i class="fas fa-pen"></i>Nouveau post</p></a>
+    <!--<router-link to="/message/create"><p id="sendMess"><i class="fas fa-pen"></i>Nouveau post</p></router-link>-->
     <section class="container">
+        <PostMessage></PostMessage>
         <Allmessages></Allmessages>
-  
     </section>
   </div>
 </template>
 
 <script>
+import PostMessage from '../components/wall/postMessage'
 import Profil from '../components/profil/getProfil'
 import Allmessages from '../components/wall/allMessage'
 import VueJwtDecode from 'vue-jwt-decode';
@@ -25,6 +26,8 @@ export default {
     components: {
       Allmessages,
       Profil,
+      PostMessage
+
     },
     data() { 
       return {
@@ -49,6 +52,7 @@ export default {
   $font: roboto;
   .main-container{
     font-family: $font ; 
+    overflow: hidden;
   }
   .avatar{
     width: 40px;
@@ -69,6 +73,8 @@ export default {
   }
  .container{
    display: flex;
+   flex-direction: column;
+   align-items: center;
    justify-content: center;
  }
  //responsive vue 

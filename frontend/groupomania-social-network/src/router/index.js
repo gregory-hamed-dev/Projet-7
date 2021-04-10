@@ -27,12 +27,6 @@ const routes = [
    }, 
 
    {
-    path: '/message/create',
-    name: 'newMessage',
-    component: () => import ('../views/newMessage.vue'),
-  },
-
-   {
     path: '/message/:id',
     name: 'MessageVue',
     component: () => import ('../views/UniqueMessagePage.vue'),

@@ -1,7 +1,8 @@
 <template>  
     <div class="form">
+        <video src="../../assets/video.mp4" autoplay muted loop></video>
         <form @submit.prevent="createUser" method="post">
-            <img src="../../assets/icon.png" class="signupicon" alt="icone Groupomania">
+            <img src="../../assets/icon-left-font-monochrome-black.png" class="signupicon" alt="icone Groupomania">
                 <div class="edit-info">
                     <input type="text" class="type text" placeholder="Nom utilisateur" required v-model="posts.name" maxlength="50">
                     <i class="fas fa-user"></i>
@@ -18,7 +19,8 @@
                 </div>
                 <small v-if="passwordValid() !== true" style="color: red">(Au minimum 8 caractères dont une majuscule et un chiffre)</small>
                 <small v-if="passwordValid() === true" style="color: green">Mot de passe valide</small>
-            <button type="submit">S'inscrire</button>
+                <button type="submit">S'inscrire</button>
+                <a href="/"><p>Vous avez un compte ? <span id="inscription">Se connecter</span></p></a>
         </form>
     </div>
 </template>
@@ -70,19 +72,27 @@ export default {
 <style scoped lang="scss">
 
 .form{
-    background: linear-gradient(to right, #827dc5, #4a2c81 );;
     display: flex;
+    height: 100vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-
+video{
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
 .signupicon{
-    width: 250px;
+    width: 300px;
+    height: 200px;
+    margin: 0;
+    object-fit: cover;
 }
 form{
-    background: white;
-    width: 35%;
+    position: absolute;
+    background: rgba(255, 255, 255, .7);
+    width: 45%;
     margin: 20px auto;
     display: flex;
     flex-direction: column;
@@ -127,6 +137,11 @@ p{
 .edit-info{
     position: relative;
 }
+#inscription{
+    color: blue;
+    text-decoration: underline;
+}
+
 .fas{
     position: absolute;
     left: 10px;

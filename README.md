@@ -1,6 +1,6 @@
 # Projet-7
 
-Bienvenue sur le projet "Groupoma social network" , pour lancer l'application, suivez les instructions suivantes :
+Bienvenue sur le projet "Groupomania social network" , pour lancer l'application, suivez les instructions suivantes :
 
 # 1)lancer le serveur 
 

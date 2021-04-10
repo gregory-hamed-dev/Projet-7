@@ -1,11 +1,6 @@
 <template>
   <div class="login">
-    <div id="nav">
-      <img class="logo" src="../assets/icon-left-font-monochrome-black.svg">
-      <div class="links">
-        <a href="http://localhost:8080/signup">S'inscrire</a>
-      </div>    
-    </div>
+    
     <Login/>
   </div>
 </template>
@@ -20,6 +15,8 @@
   }
 </script>
 <style lang="scss">
-
+.login{
+  height: 100%;
+}
 </style>
 

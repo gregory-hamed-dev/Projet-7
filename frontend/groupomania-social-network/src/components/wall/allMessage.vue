@@ -1,19 +1,22 @@
 <template>
     <section id="messages-container"> 
+        
         <div v-for="data in datas" :key="data.id" class='post-container'>
             <div class="info-profil">
                 <div class="identity">
                     <img class="avatar" :src="data.user.profil_picture" alt="">
-                    <p class="name"><a :href="'/profil/' + data.userId"> {{data.user.nom_utilisateur}}</a></p>  
+                    <p class="name"><router-link style="color: cornsilk" :to="{name: 'uniqueUserProfil', params: {id: data.userId}}"> {{data.user.nom_utilisateur}}</router-link></p>  
                 </div>
                 <p class='date-post'>posté le {{data.date}}</p> 
             </div>
             <h3 class="title">{{data.title}}</h3>
-            <a v-if="data.url !== null" :href="data.url" target="_blank" class="url"><i class="far fa-eye"></i></a>
             <p class="post">{{data.post}}</p>
+            <a v-if="data.url !== null" :href="data.url" target="_blank" class="url">
+                <iframe width="650" height="400" :src="data.url.replace('watch?v=', 'embed/')" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </a>
             <hr style="width: 70%">
             <div class="interaction-user">
-                <a :href="'/message/' + data.id"><p><i class="far fa-comment"></i></p></a>
+                <router-link :to="{name: 'MessageVue', params: {id: data.id}}"><p><i class="far fa-comment"></i></p></router-link>
             </div>
         </div>
     </section>
@@ -31,7 +34,7 @@ export default {
             token: null
         }
     },
-    mounted () {
+    mounted() {
             const axios = require('axios')
             const url = 'http://127.0.0.1:3000/message'
             this.token = localStorage.getItem('token');
@@ -47,6 +50,7 @@ export default {
 <style lang ="scss">
 #messages-container{
     width: 50%;
+    height: auto;
     margin: 20px;
     font-family: roboto;
     font-size: 14px;
@@ -62,13 +66,16 @@ export default {
     .info-profil{
         display: flex;
         justify-content: space-between;
-        margin-left: 25px;
         padding: 15px;
+        color: cornsilk;
+        background:  rgba(77, 66, 122, 0.6);
 
         .identity{
             margin-top: 5px;
             margin-left: 5px;
             display: flex;
+            color: cornsilk;
+            
         }
         h2{
             text-align: left;
@@ -84,15 +91,17 @@ export default {
             border-radius: 50%;
         }
     }
-    .post, .title, .url{
+    .post, .title{
         text-align: left;
-        margin-left: 25px;
+        margin-left: 50px;
+        margin-right: 50px;
         
     }
     .url{
         display: block;
         color: rgb(177, 156, 42);
         text-decoration: underline;
+        text-align: center;
     }
 }
 
@@ -126,6 +135,10 @@ export default {
     }
     .identity{
         justify-content: center;
+    }
+    iframe{
+        margin: auto;
+        display: block;
     }
 
 }

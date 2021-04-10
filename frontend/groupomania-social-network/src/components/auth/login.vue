@@ -1,7 +1,8 @@
 <template>
     <div class="form">
+        <video src="../../assets/video.mp4" autoplay muted loop></video>
         <form @submit.prevent="loginUser" method="post" >
-            <img src="../../assets/icon.png" class="signupicon" alt="icone Groupomania">
+            <img src="../../assets/icon-left-font-monochrome-black.png" class="signupicon" alt="icone Groupomania">
             <div class="login">
                 <input type="email"  id="email" v-model="posts.email" placeholder="Email">
                 <i class="fas fa-envelope"></i>
@@ -33,27 +34,21 @@ export default {
     },
 
     methods: {
-    
-    loginUser() {
-    const axios= require('axios')// pour les appels api 
-    const url = "http://127.0.0.1:3000/auth/login"
-    axios.post(url, {
-        email: this.posts.email,
-        password: this.posts.password
-    })
-        .then(function(res) {
-            console.log(res.data)
-            localStorage.setItem("token", res.data.token); 
-            window.location.href=`/home`
-        }
-        )
-        .catch( function(){
-          document.querySelector('small').innerText = "Mot de passe ou email incorrect"
-        })
 
-        
+        loginUser() {
+            const axios= require('axios')// pour les appels api 
+            const url = "http://127.0.0.1:3000/auth/login"
+            const logIn = axios.post(url, {email: this.posts.email,password: this.posts.password})
+            .then(function(res) {
+                localStorage.setItem("token", res.data.token); 
+                window.location.href=`/home`
+            })
+            .catch( function(){
+                document.querySelector('small').innerText = "Mot de passe ou email incorrect"
+            })
+            setTimeout(logIn, 3000)       
+        }
     }
-}
 }
 
  
@@ -63,19 +58,41 @@ export default {
 <style scoped lang="scss">
 
 .form{
-    background: linear-gradient(to right, #827dc5, #4a2c81 );
     display: flex;
     width: 100%;
+    height: 100vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: hidden;  
     
 }
+@keyframes open {
+    from{
+        opacity: 0;
+        transform: scale(0);
+    }
+    to{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+video{
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
 .signupicon{
-    width: 250px;
+    width: 300px;
+    height: 200px;
+    margin: 0;
+    object-fit: cover;
 }
 form{
-    background: white;
+    position:absolute;
+    z-index: 2;
+    background: rgba(255, 255, 255, .8);
     width: 35%;
     margin: 20px auto;
     display: flex;
@@ -84,11 +101,13 @@ form{
     justify-content: center;
     align-items: center;
     border-radius: 25px;
+    animation: 1s open ease-in-out;
 }
 
 input{
-    margin-top: 10px;
-    margin-bottom: 10px;
+    
+    background: rgba(255, 255, 255, .8)!important;
+    margin-bottom: 20px;
     height: 20px;
     border-radius: 25px;
     padding: 10px;
@@ -107,7 +126,7 @@ input{
 .fas{
     position: absolute;
     left: 10px;
-    top: 20px;
+    top: 10px;
     color: rgba(92, 92, 150, 0.6);
 }
 button {
